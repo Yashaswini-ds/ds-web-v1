@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academic Programs - GM University Data Science</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* CSS Variables */
+    :root {
+      --primary: #0f172a;
+      --primary-light: #1e293b;
+      --secondary: #111827;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --accent-dark: #1d4ed8;
+      --purple: #8b5cf6;
+      --purple-light: #a78bfa;
+      --purple-dark: #7c3aed;
+      --text: #0f172a;
+      --text-light: #f8fafc;
+      --text-muted: #64748b;
+      --text-secondary: #475569;
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-accent: #eff6ff;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+      --border-radius: 16px;
+      --border-radius-lg: 24px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      --container: min(95vw, 1600px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled {
+      background: rgba(15, 23, 42, 0.95);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .nav-inner {
+      width: var(--container);
+      margin: 0 auto;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 900;
+      font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+      font-family: "Playfair Display", serif;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: var(--transition);
+    }
+
+    .brand:hover {
+      transform: scale(1.05);
+    }
+
+    .brand img {
+      height: 40px;
+      border-radius: 50%;
+      box-shadow: var(--shadow);
+    }
+
+    .brand-text {
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .menu-btn {
+      display: none;
+      background: transparent;
+      border: 0;
+      color: var(--text-light);
+      font-size: 1.6rem;
+      padding: 0.35rem 0.6rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .menu-btn:hover {
+      transform: rotate(90deg);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .nav-links a, .nav-links .dropdown-btn {
+      padding: 0.55rem 0.9rem;
+      color: rgba(248, 250, 252, 0.92);
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a:hover, .nav-links .dropdown-btn:hover {
+      color: var(--text-light);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links a::after, .nav-links .dropdown-btn::after {
+      content: "";
+      position: absolute;
+      left: 0.9rem;
+      right: 0.9rem;
+      bottom: 6px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.25s ease;
+    }
+
+    .nav-links a:hover::after, .nav-links a.active::after, .nav-links .dropdown-btn:hover::after {
+      transform: scaleX(1);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(15, 23, 42, 0.98);
+      border-radius: 0.75rem;
+      box-shadow: var(--shadow-lg);
+      min-width: 200px;
+      z-index: 10;
+      overflow: hidden;
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 0.85rem 1.5rem;
+      color: rgba(248, 250, 252, 0.92);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .dropdown-content a:hover {
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      color: var(--text-light);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 60vh;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #3b5998 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 60px 0;
+      margin-top: 60px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" fill="none"/><g opacity="0.1"><line x1="0" y1="0" x2="80" y2="0" stroke="white" stroke-width="0.5"/><line x1="0" y1="10" x2="80" y2="10" stroke="white" stroke-width="0.5"/><line x1="0" y1="20" x2="80" y2="20" stroke="white" stroke-width="0.5"/><line x1="0" y1="30" x2="80" y2="30" stroke="white" stroke-width="0.5"/><line x1="0" y1="40" x2="80" y2="40" stroke="white" stroke-width="0.5"/><line x1="0" y1="50" x2="80" y2="50" stroke="white" stroke-width="0.5"/><line x1="0" y1="60" x2="80" y2="60" stroke="white" stroke-width="0.5"/><line x1="0" y1="70" x2="80" y2="70" stroke="white" stroke-width="0.5"/><line x1="0" y1="80" x2="80" y2="80" stroke="white" stroke-width="0.5"/><line x1="0" y1="0" x2="0" y2="80" stroke="white" stroke-width="0.5"/><line x1="10" y1="0" x2="10" y2="80" stroke="white" stroke-width="0.5"/><line x1="20" y1="0" x2="20" y2="80" stroke="white" stroke-width="0.5"/><line x1="30" y1="0" x2="30" y2="80" stroke="white" stroke-width="0.5"/><line x1="40" y1="0" x2="40" y2="80" stroke="white" stroke-width="0.5"/><line x1="50" y1="0" x2="50" y2="80" stroke="white" stroke-width="0.5"/><line x1="60" y1="0" x2="60" y2="80" stroke="white" stroke-width="0.5"/><line x1="70" y1="0" x2="70" y2="80" stroke="white" stroke-width="0.5"/><line x1="80" y1="0" x2="80" y2="80" stroke="white" stroke-width="0.5"/></g></svg>');
+      background-size: clamp(30px, 6vw, 60px);
+      animation: gridMove 20s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 80px 80px; }
+    }
+
+    .hero-content {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    .hero-text p {
+      font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      animation: slideUp 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-light);
+      padding: 12px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-cta:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      transform: perspective(800px) rotateY(-5deg) rotateX(3deg);
+      box-shadow: var(--shadow-xl);
+      transition: var(--transition);
+    }
+
+    .hero-card:hover {
+      transform: perspective(800px) rotateY(0deg) rotateX(0deg) scale(1.01);
+    }
+
+    /* Sections */
+    .section {
+      padding: 6rem 1.5rem;
+      position: relative;
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: linear-gradient(180deg, var(--bg-accent) 0%, transparent 100%);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Program Cards */
+    .program-showcase {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .program-hero-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+    }
+
+    .program-hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--purple) 50%, var(--accent) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .program-hero-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .program-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .program-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      box-shadow: var(--shadow);
+    }
+
+    .program-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text);
+      font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
+    .program-description {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Box Layout for Program Details */
+    .program-box-section {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .program-box-section h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      font-family: "Plus Jakarta Sans", sans-serif;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .program-box {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+      backdrop-filter: blur(20px);
+      border: 2px solid transparent;
+      border-image: linear-gradient(90deg, var(--accent), var(--purple)) 1;
+      border-image-slice: 1;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+    }
+
+    .program-box::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: var(--border-radius);
+      background: linear-gradient(90deg, var(--accent), var(--purple), var(--accent));
+      background-size: 200% 100%;
+      animation: borderShimmer 4s ease-in-out infinite;
+      z-index: -1;
+      opacity: 0.5;
+    }
+
+    @keyframes borderShimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .program-box:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+      border-image: linear-gradient(90deg, var(--accent-light), var(--purple-light)) 1;
+    }
+
+    .program-box h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
+    .program-box p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(180deg, var(--primary-2) 0%, var(--primary) 100%);
+      color: var(--text-light);
+      padding: 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top center, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    .footer-inner {
+      width: min(90vw, 1000px);
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .footer-grid, .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .fcol {
+      padding: 0.6rem;
+      transition: var(--transition);
+    }
+
+    .fcol:hover {
+      transform: translateY(-3px);
+    }
+
+    .fcol h4 {
+      margin: 0 0 0.6rem;
+      color: var(--accent);
+      font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+      font-weight: 800;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      padding-bottom: 0.4rem;
+    }
+
+    .fcol p, .fcol a {
+      font-size: clamp(0.75rem, 0.9vw, 0.9rem);
+      color: rgba(248, 250, 252, 0.9);
+      text-decoration: none;
+      margin: 0.4rem 0;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .fcol a:hover {
+      color: var(--purple);
+      transform: translateX(3px);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.8rem;
+      margin: 0.6rem 0;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--purple);
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      position: relative;
+    }
+
+    .footer-bottom::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      border-radius: 999px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero {
+        min-height: 50vh;
+        padding: 40px 0;
+        margin-top: 50px;
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+      }
+
+      .hero-text h1 {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+      }
+
+      .hero-text p {
+        font-size: clamp(0.85rem, 1.6vw, 1rem);
+      }
+
+      .hero-card {
+        padding: 1rem;
+      }
+
+      .menu-btn {
+        display: inline-block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        background: rgba(15, 23, 42, 0.98);
+        padding: 0.5rem;
+        gap: 0.15rem;
+        border-bottom-left-radius: 0.75rem;
+        border-bottom-right-radius: 0.75rem;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a, .nav-links .dropdown-btn {
+        padding: 0.85rem 1rem;
+        text-align: center;
+      }
+
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background: transparent;
+        padding-left: 0;
+      }
+
+      .dropdown-content a {
+        padding: 0.6rem 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 40vh;
+        padding: 30px 0;
+        margin-top: 40px;
+      }
+
+      .hero-text h1 {
+        font-size: clamp(1.4rem, 2.8vw, 1.8rem);
+      }
+
+      .hero-text p {
+        font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+      }
+
+      .hero-cta {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+
+      .hero-card {
+        padding: 0.8rem;
+      }
+
+      .program-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+
+      .section {
+        padding: 4rem 1rem;
+      }
+
+      .section-title {
+        font-size: clamp(1.6rem, 3vw, 2rem);
+      }
+
+      .section-subtitle {
+        font-size: 1rem;
+      }
+
+      .program-box {
+        padding: 1rem;
+      }
+
+      .program-box h4 {
+        font-size: 1rem;
+      }
+
+      .program-box p {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        min-height: 35vh;
+        padding: 20px 0;
+        margin-top: 30px;
+      }
+
+      .hero-content {
+        padding: 0 0.8rem;
+      }
+
+      .hero-text h1 {
+        font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      }
+
+      .hero-text p {
+        font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+      }
+
+      .hero-cta {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+
+      .nav-inner {
+        padding: 0.5rem 0.8rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .brand {
+        font-size: clamp(1rem, 4vw, 1.25rem);
+      }
+
+      .brand img {
+        height: 30px;
+      }
+
+      .footer-grid, .contact-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 0.8rem;
+      }
+
+      .fcol a:hover {
+        transform: none;
+      }
+
+      .social-links {
+        justify-content: center;
+      }
+
+      .program-box {
+        padding: 0.8rem;
+      }
+
+      .program-box h4 {
+        font-size: 0.95rem;
+      }
+
+      .program-box p {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Scroll Animations */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Loading Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="GM University Data Science Home">
+        <img src="https://gmu.ac.in/assets/imgs/gmulogo1.png" alt="GM University Logo">
+        <span class="brand-text">GM University</span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">☰</button>
+      <div class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-btn">Academics ▾</a>
+          <div class="dropdown-content">
+            <a href="programs.html" class="active">Programs</a>
+            <a href="IQAC.html">IQAC & BOS</a>
+          </div>
+        </div>
+        <a href="placements.html">Placements</a>
+        <a href="faculty.html">Faculty</a>
+        <a href="Achievement.html">Achievements</a>
+        <a href="alumini.html">Alumni</a>
+        <a href="contact.html">Contact us</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero" aria-label="Programs Offered">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Programs Offered</h1>
+        <p>Discover our comprehensive B.Tech Data Science & Engineering program designed to shape the future of technology and innovation.</p>
+        <a href="#programs" class="hero-cta">
+          <span>Explore Program</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="program-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3 style="color: var(--text-primary); margin: 0.8rem 0 0.4rem; font-size: 1.2rem; font-weight: 700;">B.Tech Data Science</h3>
+          <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">4-Year Program</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Section -->
+  <section id="programs" class="section">
+    <div class="container">
+      <div class="section-header scroll-reveal">
+        <h2 class="section-title">B.Tech Data Science & Engineering</h2>
+        <p class="section-subtitle">A comprehensive program blending theory with practical applications</p>
+      </div>
+
+      <div class="program-showcase">
+        <!-- Program Overview -->
+        <div class="program-hero-card scroll-reveal">
+          <div class="program-header">
+            <div class="program-icon">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <h3 class="program-title">Program Overview</h3>
+          </div>
+          <div class="program-description">
+            <p>The B.Tech. in Data Science & Engineering offers a balanced blend of theoretical foundations and practical applications, preparing students for the dynamic fields of data analytics, machine learning, and emerging technologies. The four-year, eight-semester program integrates core engineering principles with specialized Data Science courses, emphasizing hands-on learning through projects, system design, and internships.</p>
+            <p>Key areas include programming, algorithms, data structures, AI, machine learning, software development, and computer networks, with training in modern tools and platforms. Graduates are equipped for diverse careers in software development, IT, AI, smart technologies, research, and entrepreneurship.</p>
+            <p>The interdisciplinary nature of Data Science enables students to innovate across domains, contribute to technological advancements, and adapt to industry trends through lifelong learning. The program ensures a holistic education, producing competent, ethical, and industry-ready professionals capable of impactful contributions to society and technology.</p>
+          </div>
+        </div>
+
+        <!-- Program Educational Objectives Boxes -->
+        <div class="program-box-section scroll-reveal">
+          <h3>Program Educational Objectives (PEOs)</h3>
+          <div class="program-box">
+            <h4>PEO-1: Knowledge and Technical Skills</h4>
+            <p>Graduates will have a strong foundation in data science and engineering principles, including algorithms, data structures, artificial intelligence, and machine learning. They will be able to analyze, design, implement, and optimize data systems and intelligent solutions to address real-world challenges in diverse sectors such as data analytics, IT, and emerging technologies.</p>
+          </div>
+          <div class="program-box">
+            <h4>PEO-2: Professional Competence and Leadership</h4>
+            <p>Graduates will possess technical competencies, practical skills, and leadership abilities enabling them to excel in roles within technology companies, software industries, R&D, and entrepreneurial ventures. They will be capable of assuming both technical and leadership positions, contributing to technological advancements and innovation.</p>
+          </div>
+          <div class="program-box">
+            <h4>PEO-3: Holistic Development and Adaptability</h4>
+            <p>Graduates will demonstrate critical thinking, creativity, innovation, collaboration, effective communication, adaptability, leadership, responsibility, and cross-cultural interaction skills. They will adapt to evolving professional environments, pursue diverse career trajectories, and engage in lifelong learning while contributing effectively to their fields and society.</p>
+          </div>
+        </div>
+
+        <!-- Program Outcomes Boxes -->
+        <div class="program-box-section scroll-reveal">
+          <h3>Program Outcomes (POs) – Graduate Attributes</h3>
+          <div class="program-box">
+            <h4>PO-1: Engineering knowledge</h4>
+            <p>Apply knowledge of mathematics, science, engineering fundamentals, and specialization to solve complex engineering problems.</p>
+          </div>
+          <div class="program-box">
+            <h4>PO-2: Problem analysis</h4>
+            <p>Identify, formulate, review literature, and analyze complex engineering problems using principles of mathematics, natural sciences, and engineering sciences.</p>
+          </div>
+          <div class="program-box">
+            <h4>PO-3: Design/development of solutions</h4>
+            <p>Design solutions for complex problems and develop system components/processes that meet specified needs considering health, safety, cultural, societal, and environmental factors.</p>
+          </div>
+          <div class="program-box">
+            <h4>PO-4: Conduct investigations of complex problems</h4>
+            <p>Use research-based knowledge, experiments, analysis, and interpretation of data to provide valid conclusions.</p>
+          </div>
+          <div class="program-box">
+            <h4>PO-5: Modern tool usage</h4>
+            <p>Create, select, and apply modern engineering and IT tools, prediction, and modeling to complex engineering tasks with understanding of their limitations.</p>
+          </div>
+          <div class="program-box">
+            <h4>PO-6: The engineer and society</h4>
+            <p>Apply contextual knowledge to assess societal, health, safety, legal, and cultural issues relevant to engineering practice.</p>
+          </div>
+          <div class="program-box">
+            <h4>PO-7: Environment and sustainability</h4>
+            <p>Understand the impact of engineering solutions in societal/environmental contexts and recognize the need for sustainable development.</p>
+          </div>
+          <div class="program-box">
+            <h4>PO-8: Ethics</h4>
+            <p>Apply ethical principles and commit to professional ethics, responsibilities, and engineering norms.</p>
+          </div>
+          <div class="program-box">
+            <h4>PO-9: Individual and team work</h4>
+            <p>Function effectively as an individual, and as a member/leader in diverse and multidisciplinary teams.</p>
+          </div>
+          <div class="program-box">
+            <h4>PO-10: Communication</h4>
+            <p>Communicate effectively on complex engineering activities, including reports, documentation, presentations, and clear instructions.</p>
+          </div>
+          <div class="program-box">
+            <h4>PO-11: Project management and finance</h4>
+            <p>Demonstrate knowledge of engineering and management principles and apply them to manage projects in multidisciplinary environments.</p>
+          </div>
+          <div class="program-box">
+            <h4>PO-12: Lifelong learning</h4>
+            <p>Recognize the need for and engage in independent and lifelong learning in the context of technological change.</p>
+          </div>
+        </div>
+
+        <!-- Program Specific Outcomes Boxes -->
+        <div class="program-box-section scroll-reveal">
+          <h3>Program Specific Outcomes (PSOs)</h3>
+          <div class="program-box">
+            <h4>PSO-1: Analyze and Address Computational Challenges</h4>
+            <p>Graduates can analyze complex computational requirements, identify challenges, and deliver innovative solutions in software development, algorithm design, and computational applications.</p>
+          </div>
+          <div class="program-box">
+            <h4>PSO-2: Apply Data Science Concepts in System Development</h4>
+            <p>Graduates can envision, design, implement, and test software systems using knowledge of algorithms, data structures, and software development methodologies to create efficient, reliable, and innovative applications.</p>
+          </div>
+          <div class="program-box">
+            <h4>PSO-3: Conduct and Lead Experimental Validation in Data Science</h4>
+            <p>Graduates can plan and conduct experiments for validating and verifying computational solutions, using lab techniques and software tools, and can lead research projects by managing teams and resources effectively.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Footer - GMU Data Science</title>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --primary: #0f172a;
+      --primary-2: #111827;
+      --text-light: #f8fafc;
+      --accent: #3b82f6;
+      --accent-2: #8b5cf6;
+      --footer-container: min(90vw, 1000px);
+    }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6; overflow-x: hidden;
+    }
+    footer {
+      background: linear-gradient(180deg, var(--primary-2) 0%, var(--primary) 100%);
+      color: var(--text-light);
+      padding: clamp(1.5rem, 3vw, 3rem) 0; /* Reduced padding */
+      position: relative;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+    }
+    .footer-inner {
+      width: var(--footer-container);
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: clamp(0.8rem, 1.5vw, 1.5rem);
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: clamp(0.8rem, 1.5vw, 1.5rem);
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+    .fcol {
+      padding: 0.6rem;
+      transition: transform 0.3s ease;
+    }
+    .fcol:hover {
+      transform: translateY(-5px);
+    }
+    .fcol h4 {
+      margin: 0 0 0.6rem;
+      color: var(--accent);
+      font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+      font-weight: 800;
+      font-family: "Plus Jakarta Sans", "Poppins", sans-serif;
+      position: relative;
+      padding-bottom: 0.4rem;
+    }
+    .fcol p, .fcol a {
+      font-size: clamp(0.75rem, 0.9vw, 0.95rem);
+      color: rgba(248,250,252,0.9);
+      text-decoration: none;
+      margin: 0.4rem 0;
+      display: block;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .fcol a:hover {
+      color: var(--accent-2);
+      transform: translateX(5px);
+    }
+    .social-links {
+      display: flex;
+      gap: 0.8rem;
+      margin: 0.6rem 0;
+      flex-wrap: wrap;
+    }
+    .social-links a {
+      color: var(--text-light);
+      font-size: clamp(1rem, 1.4vw, 1.4rem);
+      transition: color 0.3s ease, transform 0.3s ease;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+    }
+    .social-links a:hover {
+      color: var(--accent-2);
+      transform: scale(1.2);
+      background: rgba(255,255,255,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .footer-bottom {
+      text-align: center;
+      font-size: clamp(0.75rem, 0.9vw, 0.9rem);
+      color: rgba(255,255,255,0.7);
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      position: relative;
+    }
+    .footer-bottom::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top center, rgba(59,130,246,0.15) 0%, transparent 70%);
+      opacity: 0.6;
+      z-index: -1;
+    }
+    @media (max-width: 980px) {
+      .footer-grid, .contact-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+    }
+    @media (max-width: 680px) {
+      .footer-grid, .contact-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1rem;
+      }
+      .fcol a:hover {
+        transform: none;
+      }
+      .social-links {
+        justify-content: center;
+      }
+    }
+    @media (max-width: 480px) {
+      .footer-inner {
+        padding: 0 0.5rem;
+      }
+      .fcol h4 {
+        font-size: clamp(0.85rem, 1.1vw, 1.1rem);
+      }
+      .fcol p, .fcol a {
+        font-size: clamp(0.7rem, 0.8vw, 0.85rem);
+      }
+      .social-links a {
+        width: 28px;
+        height: 28px;
+        font-size: 1.1rem;
+      }
+    }
+
+    /* Social Icon CSS */
+    .social-icon {
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .social-icon:hover {
+      transform: scale(1.2);
+      color: #93c5fd;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Footer -->
+<footer class="footer" aria-label="Footer navigation and contact information">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="fcol">
+        <h4>Information For</h4>
+        <p><a href="#" aria-label="Information for prospective students">Prospective Students</a></p>
+        <p><a href="#" aria-label="Information for current students">Current Students</a></p>
+        <p><a href="#" aria-label="Information for alumni">Alumni</a></p>
+      </div>
+      <div class="fcol">
+        <h4>Information About</h4>
+        <p><a href="#" aria-label="About GM University">About GM University</a></p>
+        <p><a href="#" aria-label="Academic programs">Academic Programs</a></p>
+        <p><a href="#" aria-label="Research at GM University">Research</a></p>
+      </div>
+      <div class="fcol">
+        <h4>Important Info</h4>
+        <p><a href="#" aria-label="Admissions information">Admissions</a></p>
+        <p><a href="#" aria-label="Career opportunities">Careers</a></p>
+        <p><a href="#" aria-label="Campus life">Campus Life</a></p>
+      </div>
+      <div class="fcol">
+        <h4>Placements & Internships</h4>
+        <p><a href="placements.html" aria-label="Placement overview">Placement Overview</a></p>
+        <p><a href="placements.html" aria-label="Star students">Star Students</a></p>
+        <p><a href="placements.html" aria-label="Top recruiters">Top Recruiters</a></p>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <div class="fcol">
+        <h4>Address & Contact Info</h4>
+        <p>GM University, Davangere, Karnataka, India</p>
+        <p>Email: <a href="mailto:info@gmu.edu" aria-label="Email GM University">info@gmu.edu</a></p>
+        <p>Phone: <a href="tel:+911234567890" aria-label="Call GM University">+91-123-456-7890</a></p>
+      </div>
+      <div class="fcol">
+        <h4>Connect With Us</h4>
+        <div class="social-links">
+          <a href="https://facebook.com" target="_blank" class="social-icon" aria-label="Visit our Facebook page"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com" target="_blank" class="social-icon" aria-label="Visit our Twitter page"><i class="fab fa-twitter"></i></a>
+          <a href="https://linkedin.com" target="_blank" class="social-icon" aria-label="Visit our LinkedIn page"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://instagram.com" target="_blank" class="social-icon" aria-label="Visit our Instagram page"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank" class="social-icon" aria-label="Visit our YouTube page"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p><a href="https://www.google.com/maps/place/Davanagere,+Karnataka" target="_blank" class="flex items-center gap-2 hover:text-blue-200" aria-label="Find us on Google Maps"><i class="fa-solid fa-location-dot"></i> Find us on Google Maps</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 GM University. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Footer: Social icon hover
+  document.querySelectorAll('.social-icon').forEach(icon => {
+    icon.addEventListener('mouseover', () => {
+      icon.style.color = '#60a5fa';
+    });
+    icon.addEventListener('mouseout', () => {
+      icon.style.color = '';
+    });
+  });
+</script>
+
+</body>
+</html>
+
+  <script>
+    // Navbar: Mobile toggle + scroll state + active link
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    const navbar = document.getElementById('navbar');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('active');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+      menuBtn.textContent = isOpen ? '✕' : '☰';
+    });
+
+    // Debounced scroll handler
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
+        highlightOnScroll();
+      }, 50);
+    });
+
+    function setActiveLink(element) {
+      document.querySelectorAll('.nav-links a, .nav-links .dropdown-btn').forEach(a => a.classList.remove('active'));
+      element.classList.add('active');
+      if (element.closest('.dropdown')) {
+        element.closest('.dropdown').querySelector('.dropdown-btn').classList.add('active');
+      }
+    }
+
+    function highlightOnScroll() {
+      const sections = ['hero', 'programs'];
+      const fromTop = window.scrollY + 100;
+      let current = null;
+      for (const id of sections) {
+        const section = document.getElementById(id);
+        if (section && section.offsetTop <= fromTop) current = id;
+      }
+      if (current) {
+        document.querySelectorAll('.nav-links a, .nav-links .dropdown-btn').forEach(a => {
+          const href = a.getAttribute('href');
+          if (href === `#${current}`) {
+            a.classList.add('active');
+          } else if (href?.startsWith('#')) {
+            a.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        setActiveLink(link);
+        if (navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+          menuBtn.textContent = '☰';
+        }
+      });
+    });
+
+    // Scroll Reveal Animation
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.scroll-reveal');
+      reveals.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 80;
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('revealed');
+        }
+      });
+    }
+
+    // Smooth Scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Throttled Scroll Handler
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          revealOnScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Mouse Move Effect for Hero Card
+    let heroCard = null;
+
+    function handleMouseMove(e) {
+      if (!heroCard) return;
+      const rect = heroCard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 15;
+      const rotateY = -(x - centerX) / 15;
+      heroCard.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+    }
+
+    function handleMouseLeave() {
+      if (!heroCard) return;
+      heroCard.style.transform = 'perspective(800px) rotateY(-5deg) rotateX(3deg)';
+    }
+
+    // Initialize on Page Load
+    document.addEventListener('DOMContentLoaded', () => {
+      revealOnScroll();
+      heroCard = document.querySelector('.hero-card');
+      if (heroCard) {
+        heroCard.addEventListener('mousemove', handleMouseMove);
+        heroCard.addEventListener('mouseleave', handleMouseLeave);
+      }
+      document.body.classList.add('loaded');
+    });
+
+    // Handle Window Resize
+    window.addEventListener('resize', revealOnScroll);
+
+    // Footer: Social Icon Hover
+    document.querySelectorAll('.social-icon').forEach(icon => {
+      icon.addEventListener('mouseover', () => {
+        icon.style.color = '#60a5fa';
+      });
+      icon.addEventListener('mouseout', () => {
+        icon.style.color = ''; 
+      });
+    });
+  </script>
+</body>
+</html>

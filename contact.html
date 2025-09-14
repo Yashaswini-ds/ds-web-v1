@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - GM University Data Science</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --primary-2: #111827;
+            --text: #0b1220;
+            --text-light: #f8fafc;
+            --muted: #64748b;
+            --accent: #3b82f6;
+            --accent-2: #8b5cf6;
+            --container: min(95vw, 1200px);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background: #ffffff;
+            color: #2d3748;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15,23,42,0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(15,23,42,0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .nav-inner {
+            width: var(--container);
+            margin: 0 auto;
+            padding: 0.85rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 900;
+            font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+            font-family: "Playfair Display", "Plus Jakarta Sans", Poppins, serif;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: transform 0.3s ease;
+        }
+
+        .brand:hover { transform: scale(1.05); }
+
+        .brand img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(255,255,255,0.2);
+        }
+
+        .brand-text {
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .menu-btn {
+            display: none;
+            background: transparent;
+            border: 0;
+            color: #fff;
+            font-size: 1.6rem;
+            padding: 0.35rem 0.6rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-btn:hover { transform: scale(1.1); }
+
+        .menu-btn i { transition: opacity 0.3s ease; }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .nav-links a, .nav-links .dropdown-btn {
+            color: rgba(248,250,252,0.92);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.55rem 0.9rem;
+            position: relative;
+            border-radius: 0.5rem;
+            transition: color 0.3s ease, background 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links .dropdown-btn:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-links a::after, .nav-links .dropdown-btn::after {
+            content: "";
+            position: absolute;
+            left: 0.9rem;
+            right: 0.9rem;
+            bottom: 6px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.25s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after, .nav-links .dropdown-btn:hover::after {
+            transform: scaleX(1);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(15,23,42,0.98);
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            min-width: 200px;
+            z-index: 10;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.85rem 1.5rem;
+            color: rgba(248,250,252,0.92);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            color: #fff;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            min-height: 100vh;
+            padding: clamp(4rem, 6vw, 6rem) 0;
+            background: #ffffff;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: clamp(3rem, 5vw, 5rem);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .location-pin {
+            width: clamp(40px, 5vw, 50px);
+            height: clamp(40px, 5vw, 50px);
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        .location-pin::before {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+        }
+
+        .location-pin::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 32%;
+            height: 32%;
+            background: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .section-subtitle {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            color: #718096;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: clamp(2rem, 3vw, 3rem) clamp(1.5rem, 2vw, 2rem);
+            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.4s ease;
+            animation: slideInLeft 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateX(-50px);
+            position: relative;
+        }
+
+        .contact-item:nth-child(1) { animation-delay: 0.3s; }
+        .contact-item:nth-child(2) { animation-delay: 0.5s; }
+        .contact-item:nth-child(3) { animation-delay: 0.7s; }
+        .contact-item:nth-child(4) { animation-delay: 0.9s; }
+        .contact-item:last-child { border-bottom: none; }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: #f8fafc;
+            border-radius: 16px;
+            transform: translateX(8px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .contact-item:hover::before {
+            background: linear-gradient(180deg, #4299e1, #3182ce);
+        }
+
+        .icon-container {
+            width: clamp(70px, 8vw, 90px);
+            height: clamp(70px, 8vw, 90px);
+            margin-right: clamp(1.5rem, 2vw, 2.5rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        /* Email Icon */
+        .email-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
+        }
+
+        .email-icon::before {
+            content: '';
+            position: absolute;
+            width: 55%;
+            height: 38%;
+            background: white;
+            border-radius: 4px;
+            border: 2px solid #f1f5f9;
+        }
+
+        .email-icon::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 27%;
+            border-right: 27%;
+            border-top: 22%;
+            border-style: solid;
+            border-color: transparent transparent #f1f5f9 transparent;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%);
+        }
+
+        /* Phone Icon */
+        .phone-icon {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.25);
+        }
+
+        .phone-icon::before {
+            content: '';
+            position: absolute;
+            width: 33%;
+            height: 55%;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #f1f5f9;
+        }
+
+        .phone-icon::after {
+            content: '';
+            position: absolute;
+            width: 16%;
+            height: 2px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 20px 0 #e2e8f0;
+        }
+
+        /* HOD Icon */
+        .hod-icon {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(237, 137, 54, 0.25);
+        }
+
+        .hod-icon::before {
+            content: '';
+            position: absolute;
+            width: 22%;
+            height: 22%;
+            background: white;
+            border-radius: 50%;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hod-icon::after {
+            content: '';
+            position: absolute;
+            width: 38%;
+            height: 22%;
+            background: white;
+            border-radius: 20px 20px 0 0;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* WhatsApp Icon */
+        .whatsapp-icon {
+            background: linear-gradient(135deg, #25d366 0%, #20b258 100%);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.25);
+        }
+
+        .whatsapp-icon::before {
+            content: '\f232';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: white;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .contact-item:hover .icon-container {
+            transform: scale(1.1);
+            filter: brightness(1.1);
+        }
+
+        .contact-item:hover .email-icon {
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.35);
+        }
+
+        .contact-item:hover .phone-icon {
+            box-shadow: 0 12px 35px rgba(72, 187, 120, 0.35);
+        }
+
+        .contact-item:hover .hod-icon {
+            box-shadow: 0 12px 35px rgba(237, 137, 54, 0.35);
+        }
+
+        .contact-item:hover .whatsapp-icon {
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.35);
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-title {
+            font-size: clamp(1.6rem, 2vw, 1.8rem);
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .contact-description {
+            color: #718096;
+            margin-bottom: 1.2rem;
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            line-height: 1.5;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #4299e1;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: clamp(1rem, 1.3vw, 1.2rem);
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .contact-link:hover {
+            color: #3182ce;
+            transform: translateX(12px);
+        }
+
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4299e1, #3182ce);
+            transition: width 0.4s ease;
+        }
+
+        .contact-link:hover::after {
+            width: calc(100% - 2rem);
+        }
+
+        .office-hours {
+            color: #a0aec0;
+            font-size: clamp(0.85rem, 1.1vw, 1rem);
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-style: italic;
+        }
+
+        .office-hours i {
+            color: #cbd5e0;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(180deg, var(--primary-2), var(--primary));
+            color: var(--text-light);
+            padding: clamp(1.5rem, 3vw, 3rem) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-inner {
+            width: var(--container);
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: clamp(0.8rem, 1.5vw, 1.5rem);
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .fcol {
+            padding: 0.6rem;
+        }
+
+        .fcol h4 {
+            margin: 0 0 0.6rem;
+            color: var(--accent);
+            font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+            font-weight: 800;
+            font-family: "Plus Jakarta Sans", Poppins, sans-serif;
+            position: relative;
+            padding-bottom: 0.4rem;
+        }
+
+        .fcol h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            border-radius: 999px;
+        }
+
+        .fcol p, .fcol a {
+            font-size: clamp(0.75rem, 0.9vw, 0.95rem);
+            color: rgba(248,250,252,0.9);
+            text-decoration: none;
+            margin: 0.4rem 0;
+            display: block;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .fcol a:hover {
+            color: var(--accent-2);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin: 0.6rem 0;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: clamp(1rem, 1.4vw, 1.4rem);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-2);
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: clamp(0.75rem, 0.9vw, 0.9rem);
+            color: rgba(255,255,255,0.7);
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top center, rgba(59,130,246,0.15) 0%, transparent 70%);
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .menu-btn { display: inline-block; }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                display: none;
+                flex-direction: column;
+                background: rgba(15,23,42,0.98);
+                padding: 0.5rem;
+                gap: 0.15rem;
+                border-bottom-left-radius: 0.75rem;
+                border-bottom-right-radius: 0.75rem;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a, .nav-links .dropdown-btn { padding: 0.85rem 1rem; text-align: center; }
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                background: transparent;
+                padding-left: 0;
+            }
+            .dropdown-content a { padding: 0.6rem 1rem; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+            .contact-item { flex-direction: column; text-align: center; }
+            .icon-container { margin-right: 0; margin-bottom: 1.5rem; }
+        }
+
+        @media (max-width: 680px) {
+            .section-title { font-size: clamp(2rem, 3.5vw, 2.8rem); flex-direction: column; }
+            .location-pin { width: 40px; height: 40px; }
+            .location-pin::before { width: 32px; height: 32px; }
+            .location-pin::after { width: 12px; height: 12px; }
+            .contact-item { padding: clamp(1.5rem, 2.5vw, 2rem) 1rem; }
+            .icon-container { width: 70px; height: 70px; }
+            .email-icon::before { width: 38px; height: 26px; }
+            .email-icon::after { border-left: 19px solid transparent; border-right: 19px solid transparent; border-top: 15px solid #f1f5f9; }
+            .phone-icon::before { width: 23px; height: 38px; }
+            .phone-icon::after { width: 11px; }
+            .hod-icon::before { width: 15px; height: 15px; }
+            .hod-icon::after { width: 26px; height: 15px; }
+            .whatsapp-icon::before { font-size: 1.5rem; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .fcol h4::after { left: 50%; transform: translateX(-50%); }
+            .social-links { justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 1rem; }
+            .contact-section { padding: clamp(3rem, 5vw, 4rem) 0; }
+            .section-title { font-size: clamp(1.8rem, 3vw, 2.2rem); }
+            .contact-title { font-size: 1.4rem; }
+            .contact-description { font-size: 0.9rem; }
+            .contact-link { font-size: 1rem; }
+            .footer-inner { padding: 0 0.5rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        }
+
+        .contact-item:focus-within {
+            outline: 2px solid #4299e1;
+            outline-offset: 4px;
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a class="brand" href="index.html" aria-label="GM University Data Science Home">
+                <img src="https://gmu.ac.in/assets/imgs/gmulogo1.png" alt="GM University Logo">
+                <span class="brand-text">GM University</span>
+            </a>
+            <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
+                <a href="index.html">Home</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-btn">Academics ▾</a>
+                    <div class="dropdown-content">
+                        <a href="programs.html">Programs</a>
+                        <a href="IQAC.html">IQAC & BOS</a>
+                    </div>
+                </div>
+                <a href="placements.html">Placements</a>
+                <a href="faculty.html">Faculty</a>
+                <a href="Achievement.html">Achievements</a>
+                <a href="alumni.html">Alumni</a>
+                <a href="contact.html" class="active">Contact us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">
+                    <div class="location-pin"></div>
+                    Connect with GM University
+                </h1>
+                <p class="section-subtitle">
+                    Reach out to our Department of Data Science & Engineering for inquiries, support, or collaboration opportunities
+                </p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-item">
+                    <div class="icon-container email-icon"></div>
+                    <div class="contact-details">
+                        <h3 class="contact-title">Department Office</h3>
+                        <p class="contact-description">General inquiries, student services, and administrative support for all departmental matters</p>
+                        <a href="mailto:dept.office@gmu.edu" class="contact-link">
+                            dept.office@gmu.edu
+                            <i class="fas fa-external-link-alt" style="font-size: 0.9rem;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="icon-container phone-icon"></div>
+                    <div class="contact-details">
+                        <h3 class="contact-title">Phone Number</h3>
+                        <p class="contact-description">Direct telephone line for immediate assistance and urgent communications</p>
+                        <a href="tel:+911234567890" class="contact-link">
+                            +91-123-456-7890
+                            <i class="fas fa-phone-alt" style="font-size: 0.9rem;"></i>
+                        </a>
+                        <div class="office-hours">
+                            <i class="far fa-clock"></i>
+                            Available Monday through Friday, 9:00 AM - 5:00 PM
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="icon-container hod-icon"></div>
+                    <div class="contact-details">
+                        <h3 class="contact-title">Head of Department</h3>
+                        <p class="contact-description">Academic leadership, strategic partnerships, and high-level institutional communications</p>
+                        <a href="mailto:hod@gmu.edu" class="contact-link">
+                            hod@gmu.edu
+                            <i class="fas fa-external-link-alt" style="font-size: 0.9rem;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="icon-container whatsapp-icon"></div>
+                    <div class="contact-details">
+                        <h3 class="contact-title">WhatsApp Support</h3>
+                        <p class="contact-description">Instant messaging for quick queries and real-time support</p>
+                        <a href="https://wa.me/918792047732?text=Hello,%20I%20have%20an%20inquiry%20about%20GM%20University's%20Department%20of%20Computer%20Science%20&%20Engineering" target="_blank" class="contact-link">
+                            +91-8792047732
+                            <i class="fab fa-whatsapp" style="font-size: 0.9rem;"></i>
+                        </a>
+                        <div class="office-hours">
+                            <i class="far fa-clock"></i>
+                            Available Monday through Friday, 9:00 AM - 6:00 PM
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" aria-label="Footer navigation and contact information">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="fcol">
+                    <h4>Information For</h4>
+                    <p><a href="#" aria-label="Information for prospective students">Prospective Students</a></p>
+                    <p><a href="#" aria-label="Information for current students">Current Students</a></p>
+                    <p><a href="#" aria-label="Information for alumni">Alumni</a></p>
+                </div>
+                <div class="fcol">
+                    <h4>Information About</h4>
+                    <p><a href="#" aria-label="About GM University">About GM University</a></p>
+                    <p><a href="#" aria-label="Academic programs">Academic Programs</a></p>
+                    <p><a href="#" aria-label="Research at GM University">Research</a></p>
+                </div>
+                <div class="fcol">
+                    <h4>Important Info</h4>
+                    <p><a href="#" aria-label="Admissions information">Admissions</a></p>
+                    <p><a href="#" aria-label="Career opportunities">Careers</a></p>
+                    <p><a href="#" aria-label="Campus life">Campus Life</a></p>
+                </div>
+                <div class="fcol">
+                    <h4>Placements & Internships</h4>
+                    <p><a href="placements.html" aria-label="Placement overview">Placement Overview</a></p>
+                    <p><a href="placements.html" aria-label="Star students">Star Students</a></p>
+                    <p><a href="placements.html" aria-label="Top recruiters">Top Recruiters</a></p>
+                </div>
+                <div class="fcol">
+                    <h4>Address & Contact Info</h4>
+                    <p>GM University, Davangere, Karnataka, India</p>
+                    <p>Email: <a href="mailto:info@gmu.edu" aria-label="Email GM University">info@gmu.edu</a></p>
+                    <p>Phone: <a href="tel:+911234567890" aria-label="Call GM University">+91-123-456-7890</a></p>
+                </div>
+                <div class="fcol">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank" class="social-icon" aria-label="Visit our Facebook page"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com" target="_blank" class="social-icon" aria-label="Visit our Twitter page"><i class="fab fa-twitter"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="social-icon" aria-label="Visit our LinkedIn page"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="social-icon" aria-label="Visit our Instagram page"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com" target="_blank" class="social-icon" aria-label="Visit our YouTube page"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p><a href="https://www.google.com/maps/place/Davanagere,+Karnataka" target="_blank" aria-label="Find us on Google Maps"><i class="fa-solid fa-location-dot"></i> Find us on Google Maps</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GM University. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar: Mobile toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const navbar = document.getElementById('navbar');
+        const menuIcon = menuBtn.querySelector('i');
+
+        menuBtn.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('active');
+            menuBtn.setAttribute('aria-expanded', String(isOpen));
+            menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        // Scroll handler
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                navbar.classList.toggle('scrolled', window.scrollY > 80);
+            }, 50);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                const targetId = anchor.getAttribute('href');
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Smooth scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.contact-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Enhanced click interactions
+        document.querySelectorAll('.contact-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (!e.target.closest('a')) {
+                    const link = this.querySelector('.contact-link');
+                    if (link) {
+                        this.style.transform = 'translateX(4px) scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                            link.click();
+                        }, 150);
+                    }
+                }
+            });
+
+            // Keyboard navigation support
+            item.setAttribute('tabindex', '0');
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const link = this.querySelector('.contact-link');
+                    if (link) {
+                        link.click();
+                    }
+                }
+            });
+        });
+
+        // Add smooth hover effects
+        document.querySelectorAll('.contact-link').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.letterSpacing = '0.01em';
+            });
+            link.addEventListener('mouseleave', function() {
+                this.style.letterSpacing = 'normal';
+            });
+        });
+
+        // Professional loading sequence
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
