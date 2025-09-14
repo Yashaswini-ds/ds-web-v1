@@ -1,0 +1,97 @@
+<!-- Navigation -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a class="brand" href="#hero" aria-label="GM University Data Science Home">
+      <img src="https://gmu.ac.in/assets/imgs/gmulogo1.png" alt="GM University Logo">
+      <span class="brand-text">GM University</span>
+    </a>
+    
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
+      <a href="#hero" class="active">Home</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-btn">Programs <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown-content">
+          <a href="programs.html">B.Tech Data Science</a>
+          <a href="programs.html">M.Tech Data Science</a>
+          <a href="programs.html">PhD Programs</a>
+        </div>
+      </div>
+      <a href="faculty.html">Faculty</a>
+      <a href="placements.html">Placements</a>
+      <a href="Achievement.html">Achievements</a>
+      <a href="alumini.html">Alumni</a>
+      <a href="IQAC.html">IQAC</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Navigation functionality
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  const navbar = document.getElementById('navbar');
+
+  // Mobile menu toggle
+  menuBtn.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('active');
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+    menuBtn.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+  });
+
+  // Scroll effect for navbar
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      navbar.classList.toggle('scrolled', window.scrollY > 80);
+      highlightOnScroll();
+    }, 50);
+  });
+
+  // Active link highlighting
+  function setActiveLink(element) {
+    document.querySelectorAll('.nav-links a, .nav-links .dropdown-btn').forEach(a => a.classList.remove('active'));
+    element.classList.add('active');
+    if (element.closest('.dropdown')) {
+      element.closest('.dropdown').querySelector('.dropdown-btn').classList.add('active');
+    }
+  }
+
+  function highlightOnScroll() {
+    const sections = ['hero', 'about', 'programs', 'faculty', 'placements'];
+    const fromTop = window.scrollY + 120;
+    let current = null;
+    
+    for (const id of sections) {
+      const section = document.getElementById(id);
+      if (section && section.offsetTop <= fromTop) current = id;
+    }
+    
+    if (current) {
+      document.querySelectorAll('.nav-links a, .nav-links .dropdown-btn').forEach(a => {
+        const href = a.getAttribute('href');
+        if (href === `#${current}`) {
+          a.classList.add('active');
+        } else if (href?.startsWith('#')) {
+          a.classList.remove('active');
+        }
+      });
+    }
+  }
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      setActiveLink(link);
+      if (navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+      }
+    });
+  });
+</script>

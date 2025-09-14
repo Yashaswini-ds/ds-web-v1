@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IQAC & Quality Initiatives - GM University</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* CSS Variables */
+    :root {
+      --primary: #0f172a;
+      --primary-light: #1e293b;
+      --primary-2: #111827;
+      --secondary: #111827;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --accent-dark: #1d4ed8;
+      --purple: #8b5cf6;
+      --purple-light: #a78bfa;
+      --purple-dark: #7c3aed;
+      --text: #0f172a;
+      --text-light: #f8fafc;
+      --text-muted: #64748b;
+      --text-secondary: #475569;
+      --bg: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-accent: #eff6ff;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+      --border-radius: 16px;
+      --border-radius-lg: 24px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      --container: min(95vw, 1600px);
+      --footer-container: min(90vw, 1000px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled {
+      background: rgba(15, 23, 42, 0.95);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .nav-inner {
+      width: var(--container);
+      margin: 0 auto;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 900;
+      font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+      font-family: "Playfair Display", serif;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: var(--transition);
+    }
+
+    .brand:hover {
+      transform: scale(1.05);
+    }
+
+    .brand img {
+      height: 40px;
+      border-radius: 50%;
+      box-shadow: var(--shadow);
+    }
+
+    .brand-text {
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .menu-btn {
+      display: none;
+      background: transparent;
+      border: 0;
+      color: var(--text-light);
+      font-size: 1.6rem;
+      padding: 0.35rem 0.6rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .menu-btn:hover {
+      transform: rotate(90deg);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .nav-links a, .nav-links .dropdown-btn {
+      padding: 0.55rem 0.9rem;
+      color: rgba(248, 250, 252, 0.92);
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a:hover, .nav-links .dropdown-btn:hover {
+      color: var(--text-light);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links a::after, .nav-links .dropdown-btn::after {
+      content: "";
+      position: absolute;
+      left: 0.9rem;
+      right: 0.9rem;
+      bottom: 6px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.25s ease;
+    }
+
+    .nav-links a:hover::after, .nav-links a.active::after, .nav-links .dropdown-btn:hover::after {
+      transform: scaleX(1);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(15, 23, 42, 0.98);
+      border-radius: 0.75rem;
+      box-shadow: var(--shadow-lg);
+      min-width: 200px;
+      z-index: 10;
+      overflow: hidden;
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 0.85rem 1.5rem;
+      color: rgba(248, 250, 252, 0.92);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .dropdown-content a:hover {
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      color: var(--text-light);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 60vh;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #3b5998 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 60px 0;
+      margin-top: 60px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" fill="none"/><g opacity="0.1"><line x1="0" y1="0" x2="80" y2="0" stroke="white" stroke-width="0.5"/><line x1="0" y1="10" x2="80" y2="10" stroke="white" stroke-width="0.5"/><line x1="0" y1="20" x2="80" y2="20" stroke="white" stroke-width="0.5"/><line x1="0" y1="30" x2="80" y2="30" stroke="white" stroke-width="0.5"/><line x1="0" y1="40" x2="80" y2="40" stroke="white" stroke-width="0.5"/><line x1="0" y1="50" x2="80" y2="50" stroke="white" stroke-width="0.5"/><line x1="0" y1="60" x2="80" y2="60" stroke="white" stroke-width="0.5"/><line x1="0" y1="70" x2="80" y2="70" stroke="white" stroke-width="0.5"/><line x1="0" y1="80" x2="80" y2="80" stroke="white" stroke-width="0.5"/><line x1="0" y1="0" x2="0" y2="80" stroke="white" stroke-width="0.5"/><line x1="10" y1="0" x2="10" y2="80" stroke="white" stroke-width="0.5"/><line x1="20" y1="0" x2="20" y2="80" stroke="white" stroke-width="0.5"/><line x1="30" y1="0" x2="30" y2="80" stroke="white" stroke-width="0.5"/><line x1="40" y1="0" x2="40" y2="80" stroke="white" stroke-width="0.5"/><line x1="50" y1="0" x2="50" y2="80" stroke="white" stroke-width="0.5"/><line x1="60" y1="0" x2="60" y2="80" stroke="white" stroke-width="0.5"/><line x1="70" y1="0" x2="70" y2="80" stroke="white" stroke-width="0.5"/><line x1="80" y1="0" x2="80" y2="80" stroke="white" stroke-width="0.5"/></g></svg>');
+      background-size: clamp(30px, 6vw, 60px);
+      animation: gridMove 20s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 80px 80px; }
+    }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    .hero h3 {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      color: var(--accent-light);
+      margin-bottom: 0.75rem;
+      animation: slideUp 0.8s ease-out 0.2s both;
+    }
+
+    .hero .icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(45deg, var(--accent), var(--purple));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-size: 1rem;
+      margin: 0 auto 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .hero p {
+      font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+      animation: slideUp 0.8s ease-out 0.3s both;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      transform: perspective(800px) rotateY(-5deg) rotateX(3deg);
+      box-shadow: var(--shadow-xl);
+      transition: var(--transition);
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .hero-card:hover {
+      transform: perspective(800px) rotateY(0deg) rotateX(0deg) scale(1.01);
+    }
+
+    .hero-card .program-icon {
+      font-size: 1.2rem;
+      color: var(--text-light);
+    }
+
+    .hero-card h3 {
+      color: var(--text-light);
+      margin: 0.8rem 0 0.4rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .hero-card p {
+      color: rgba(255, 255, 255, 0.8);
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* Sections */
+    .section {
+      padding: 6rem 1.5rem;
+      position: relative;
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: linear-gradient(180deg, var(--bg-accent) 0%, transparent 100%);
+      z-index: -1;
+    }
+
+    /* Program Showcase */
+    .program-showcase {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    /* Dropdown System */
+    .dropdown-system {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .dropdown-item {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    .dropdown-item:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent-light);
+    }
+
+    .dropdown-header {
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .dropdown-header:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    }
+
+    .dropdown-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      font-family: "Plus Jakarta Sans", sans-serif;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .dropdown-icon {
+      font-size: 1rem;
+      color: var(--accent);
+      transition: var(--transition);
+    }
+
+    .dropdown-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .dropdown-content.active {
+      max-height: 1200px; /* Adjusted to accommodate content */
+    }
+
+    .dropdown-inner {
+      padding: 1.5rem;
+    }
+
+    .objective-item {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: var(--border-radius);
+      border-left: 3px solid var(--accent);
+      transition: var(--transition);
+    }
+
+    .objective-item:hover {
+      background: rgba(255, 255, 255, 0.8);
+      transform: translateX(3px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .objective-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .objective-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
+    .objective-description {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .outcome-item {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      transition: var(--transition);
+    }
+
+    .outcome-item:hover {
+      background: rgba(255, 255, 255, 0.6);
+      border-color: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .outcome-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .outcome-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .outcome-text strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Table Styles for BoS and Benchmarking */
+    .bos-table, .benchmark-table {
+      overflow-x: auto;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      margin-top: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .bos-table table, .benchmark-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: clamp(0.85rem, 1.5vw, 0.9rem);
+    }
+
+    .bos-table thead tr, .benchmark-table thead tr {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+      border-bottom: 2px solid var(--accent-light);
+    }
+
+    .bos-table th, .benchmark-table th {
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .bos-table tbody tr, .benchmark-table tbody tr {
+      border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+      transition: var(--transition);
+    }
+
+    .bos-table tbody tr:hover, .benchmark-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .bos-table td, .benchmark-table td {
+      padding: 0.75rem;
+    }
+
+    .bos-table tbody tr td:first-child, .benchmark-table tbody tr td:first-child {
+      color: var(--text-secondary);
+    }
+
+    .bos-table tbody tr td:nth-child(2), .benchmark-table tbody tr td:nth-child(2) {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .bos-table tbody tr td:nth-child(3),
+    .bos-table tbody tr td:nth-child(4),
+    .benchmark-table tbody tr td:nth-child(3),
+    .benchmark-table tbody tr td:nth-child(4) {
+      color: var(--text-secondary);
+    }
+
+    /* Admission Highlight */
+    .admission-highlight {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+      border: 1px solid var(--accent-light);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .admission-highlight .outcome-text {
+      color: var(--text);
+      font-weight: 500;
+      margin: 0;
+    }
+
+    /* Closing Statement */
+    .closing-statement {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: var(--border-radius);
+      border-left: 3px solid var(--purple);
+      box-shadow: var(--shadow);
+    }
+
+    .closing-statement p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-style: italic;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(180deg, var(--primary-2) 0%, var(--primary) 100%);
+      color: var(--text-light);
+      padding: 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top center, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    .footer-inner {
+      width: var(--footer-container);
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .footer-grid, .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .fcol {
+      padding: 0.6rem;
+      transition: var(--transition);
+    }
+
+    .fcol:hover {
+      transform: translateY(-3px);
+    }
+
+    .fcol h4 {
+      margin: 0 0 0.6rem;
+      color: var(--accent);
+      font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+      font-weight: 800;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      padding-bottom: 0.4rem;
+    }
+
+    .fcol p, .fcol a {
+      font-size: clamp(0.75rem, 0.9vw, 0.9rem);
+      color: rgba(248, 250, 252, 0.9);
+      text-decoration: none;
+      margin: 0.4rem 0;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .fcol a:hover {
+      color: var(--purple);
+      transform: translateX(3px);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.8rem;
+      margin: 0.6rem 0;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--purple);
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      position: relative;
+    }
+
+    .footer-bottom::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      border-radius: 999px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero {
+        min-height: 50vh;
+        padding: 40px 0;
+        margin-top: 50px;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+      }
+
+      .hero h3 {
+        font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      }
+
+      .hero p {
+        font-size: clamp(0.85rem, 1.6vw, 1rem);
+      }
+
+      .hero-card {
+        padding: 1rem;
+        max-width: 250px;
+      }
+
+      .menu-btn {
+        display: inline-block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        background: rgba(15, 23, 42, 0.98);
+        padding: 0.5rem;
+        gap: 0.15rem;
+        border-bottom-left-radius: 0.75rem;
+        border-bottom-right-radius: 0.75rem;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a, .nav-links .dropdown-btn {
+        padding: 0.85rem 1rem;
+        text-align: center;
+      }
+
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background: transparent;
+        padding-left: 0;
+      }
+
+      .dropdown-content a {
+        padding: 0.6rem 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+      }
+
+      .bos-table, .benchmark-table {
+        padding: 0.5rem;
+      }
+
+      .bos-table table, .benchmark-table table {
+        font-size: clamp(0.8rem, 1.4vw, 0.85rem);
+      }
+
+      .bos-table th,
+      .bos-table td,
+      .benchmark-table th,
+      .benchmark-table td {
+        padding: 0.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 40vh;
+        padding: 30px 0;
+        margin-top: 40px;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.4rem, 2.8vw, 1.8rem);
+      }
+
+      .hero h3 {
+        font-size: clamp(1rem, 2vw, 1.3rem);
+      }
+
+      .hero p {
+        font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+      }
+
+      .hero-card {
+        padding: 0.8rem;
+        max-width: 220px;
+      }
+
+      .hero .icon {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+      }
+
+      .section {
+        padding: 4rem 1rem;
+      }
+
+      .dropdown-header {
+        padding: 0.8rem 1.2rem;
+      }
+
+      .dropdown-title {
+        font-size: 1.1rem;
+      }
+
+      .dropdown-inner {
+        padding: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        min-height: 35vh;
+        padding: 20px 0;
+        margin-top: 30px;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      }
+
+      .hero h3 {
+        font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+      }
+
+      .hero p {
+        font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+      }
+
+      .hero-card {
+        padding: 0.6rem;
+        max-width: 200px;
+      }
+
+      .hero .icon {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+      }
+
+      .nav-inner {
+        padding: 0.5rem 0.8rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .brand {
+        font-size: clamp(1rem, 4vw, 1.25rem);
+      }
+
+      .brand img {
+        height: 30px;
+      }
+
+      .footer-grid, .contact-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 0.8rem;
+      }
+
+      .fcol a:hover {
+        transform: none;
+      }
+
+      .social-links {
+        justify-content: center;
+      }
+
+      .bos-table, .benchmark-table {
+        padding: 0.3rem;
+      }
+
+      .bos-table table, .benchmark-table table {
+        font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+      }
+
+      .bos-table th,
+      .bos-table td,
+      .benchmark-table th,
+      .benchmark-table td {
+        padding: 0.4rem;
+      }
+    }
+
+    /* Scroll Animations */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Loading Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="GM University Data Science Home">
+        <img src="https://gmu.ac.in/assets/imgs/gmulogo1.png" alt="GM University Logo">
+        <span class="brand-text">GM University</span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">☰</button>
+      <div class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-btn">Academics ▾</a>
+          <div class="dropdown-content">
+            <a href="programs.html">Programs</a>
+            <a href="IQAC.html" class="active">IQAC & BOS</a>
+          </div>
+        </div>
+        <a href="placements.html">Placements</a>
+        <a href="faculty.html">Faculty</a>
+        <a href="Achievement.html">Achievements</a>
+        <a href="alumini.html">Alumni</a>
+        <a href="contact.html">Contact us</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero" aria-label="IQAC and Quality Initiatives">
+    <div class="container">
+      <h1>IQAC & Quality Initiatives</h1>
+      <h3>Our Commitment</h3>
+      <div class="icon"><i class="fas fa-star"></i></div>
+      <p>The Department of Data Science & Engineering actively engages in the Internal Quality Assurance Cell (IQAC) framework to strengthen teaching, learning, and academic governance.</p>
+      <div class="hero-card">
+        <div class="program-icon">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <h3>B.Tech Data Science</h3>
+        <p>4-Year Program</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Program Showcase -->
+  <section class="section">
+    <div class="container">
+      <div class="program-showcase">
+        <!-- IQAC & Quality Initiatives -->
+        <div class="dropdown-system scroll-reveal">
+          <div class="dropdown-item">
+            <div class="dropdown-header" role="button" aria-expanded="false" aria-controls="iqac-content">
+              <h3 class="dropdown-title">IQAC & Quality Initiatives</h3>
+              <i class="fas fa-chevron-down dropdown-icon" id="iqac-icon"></i>
+            </div>
+            <div class="dropdown-content" id="iqac-content" aria-hidden="true">
+              <div class="dropdown-inner">
+                <div class="objective-item">
+                  <h4 class="objective-title">IQAC Coordinators</h4>
+                  <p class="objective-description">
+                    <strong>Dr. Chethan Chandra S. Basavaraddi</strong><br>
+                    Email: <a href="mailto:chethanchandrasb.datascience@gmu.ac.in">chethanchandrasb.datascience@gmu.ac.in</a><br>
+                    Mobile: +91 98445 08359<br><br>
+                    <strong>Mr. Santoshkumar M</strong><br>
+                    Email: <a href="mailto:santoshkumarm@gmit.ac.in">santoshkumarm@gmit.ac.in</a><br>
+                    Mobile: +91 92421 63128
+                  </p>
+                </div>
+                <div class="objective-item">
+                  <h4 class="objective-title">Mentorship Model</h4>
+                  <p class="objective-description">Each faculty member mentors students in a 1:30 ratio, ensuring personalized guidance, academic monitoring, and career support.</p>
+                </div>
+                <div class="objective-item">
+                  <h4 class="objective-title">ERP-Enabled Quality Assurance</h4>
+                  <p class="objective-description">The department leverages the University ERP system for data visualization, performance tracking, and evidence-based decision-making. Insights generated from ERP data support decisions at the mentor, coordinator, and HoD levels, enhancing transparency and accountability.</p>
+                </div>
+                <div class="objective-item">
+                  <h4 class="objective-title">OBE and Documentation</h4>
+                  <p class="objective-description">The IQAC coordinators maintain syllabus records, course outcome and program outcome mappings, feedback reports, placement statistics, and curriculum review data.</p>
+                </div>
+                <div class="objective-item">
+                  <h4 class="objective-title">Continuous Improvement</h4>
+                  <p class="objective-description">Regular benchmarking against peer institutions, stakeholder consultations, and academic audits ensure alignment with AICTE/UGC regulations and industry requirements.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Board of Studies -->
+          <div class="dropdown-item">
+            <div class="dropdown-header" role="button" aria-expanded="false" aria-controls="bos-content">
+              <h3 class="dropdown-title">Board of Studies (BoS)</h3>
+              <i class="fas fa-chevron-down dropdown-icon" id="bos-icon"></i>
+            </div>
+            <div class="dropdown-content" id="bos-content" aria-hidden="true">
+              <div class="dropdown-inner">
+                <div class="objective-item">
+                  <h4 class="objective-title">Primary Academic Body</h4>
+                  <p class="objective-description">The Board of Studies (BoS) of the Department of Data Science & Engineering is the primary academic body responsible for designing, reviewing, and updating the curriculum. It ensures that the courses offered are aligned with the vision of GM University, the requirements of AICTE/UGC guidelines, and the evolving needs of the IT industry, Professional Body's vision of the industry and research community.</p>
+                </div>
+                <div class="objective-item">
+                  <h4 class="objective-title">Academic Responsibilities</h4>
+                  <p class="objective-description">The BoS recommends new programs, proposes panels of examiners, and identifies standard learning resources for teaching and evaluation. Its recommendations are placed before the Board of Faculty and Academic Council for approval, as per the GMU Statutes (pp. 40–41).</p>
+                </div>
+                <div class="objective-item">
+                  <h4 class="objective-title">Composition and Expertise</h4>
+                  <p class="objective-description">The BoS of Data Science includes the Head of the Department (Chairperson), senior faculty members, external subject experts, and industry representatives, bringing together academic depth and professional relevance.</p>
+                </div>
+                <div class="bos-table">
+                  <h4 class="objective-title">Board of Studies Composition</h4>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Sl. No.</th>
+                        <th>Category / Position</th>
+                        <th>Required Designation / Profile</th>
+                        <th>Preferred From</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Chairperson</td>
+                        <td>Head of the Department (HoD)</td>
+                        <td>Concerned Department</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Member Secretary</td>
+                        <td>Program Coordinator / DUGC Member Secretary / Senior Faculty</td>
+                        <td>Concerned Department</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Internal Members (4–6)</td>
+                        <td>Professors / Associate Professors / Senior Faculty</td>
+                        <td>Concerned Department</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>Academic Council Nominee – 1</td>
+                        <td>Senior Faculty (Professor/Assoc. Prof.)</td>
+                        <td>State/Central/Private University</td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td>Academic Council Nominee – 2</td>
+                        <td>Senior Faculty (Professor/Assoc. Prof.)</td>
+                        <td>Autonomous Institution (preferably within State)</td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td>Academic Council Nominee – 3</td>
+                        <td>Subject Expert / Associate Professor / Professor</td>
+                        <td>Reputed University/Institution (outside State/region)</td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td>Vice-Chancellor Nominee</td>
+                        <td>Senior Professor</td>
+                        <td>Any Recognized Institution (nominated by VC)</td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td>Industry Representative – Senior</td>
+                        <td>Industry Expert / Senior Alumnus (10+ years experience)</td>
+                        <td>Reputed Industry / Alumni (earlier batches)</td>
+                      </tr>
+                      <tr>
+                        <td>9</td>
+                        <td>Industry Representative – Young</td>
+                        <td>Recent Alumnus (within last 10–15 years) in Industry/R&D</td>
+                        <td>Industry/Research Organization (recent batches alumni)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Department Benchmarking -->
+          <div class="dropdown-item">
+            <div class="dropdown-header" role="button" aria-expanded="false" aria-controls="benchmarking-content">
+              <h3 class="dropdown-title">Department Benchmarking</h3>
+              <i class="fas fa-chevron-down dropdown-icon" id="benchmarking-icon"></i>
+            </div>
+            <div class="dropdown-content" id="benchmarking-content" aria-hidden="true">
+              <div class="dropdown-inner">
+                <div class="objective-item">
+                  <h4 class="objective-title">Department Benchmarking – Data Science, GMU</h4>
+                  <p class="objective-description">The Department of Data Science & Engineering benchmarks its academic, research, and professional practices with leading national and international institutions to ensure excellence and continuous improvement.</p>
+                </div>
+                <div class="objective-item">
+                  <h4 class="objective-title">Curriculum Benchmarking</h4>
+                  <p class="objective-description">The B.Tech. Data Science syllabus is designed in line with the ACM/IEEE Data Science Curriculum Guidelines, DS2023, ensuring global relevance and coverage of emerging areas such as Artificial Intelligence, Machine Learning, Cybersecurity, and Cloud Computing.</p>
+                </div>
+                <div class="objective-item">
+                  <h4 class="objective-title">National Competitiveness</h4>
+                  <p class="objective-description">Data Science graduates are well-prepared to appear for the GATE (Data Science) examination, as the syllabus aligns with the most recent GATE committee framework. This readiness enables students to secure M.Tech., MS program admissions in IITs, NITs, and other premier Indian institutions.</p>
+                </div>
+                <div class="objective-item">
+                  <h4 class="objective-title">Global Competitiveness</h4>
+                  <p class="objective-description">The department nurtures strong analytical and scholarly skills, making students competitive for GRE, TOEFL, and IELTS examinations, thereby enabling admission to top universities in the US, UK, Europe, and Asia for higher studies under prestigious fellowships.</p>
+                </div>
+                <div class="objective-item">
+                  <h4 class="objective-title">Research & Scholarly Growth</h4>
+                  <p class="objective-description">Students are trained to pursue advanced research, equipping them with the scholarly depth required for direct Integrated Ph.D. admissions in leading Indian and global institutions.</p>
+                </div>
+                <div class="objective-item">
+                  <h4 class="objective-title">Industry Benchmarking</h4>
+                  <p class="objective-description">Through exposure to industry-standard tools, practices, and technologies, students are capable of excelling in capstone projects at CMMI Level 5 companies, agile startups, and innovation-driven enterprises. Their entrepreneurial skills are nurtured to align with Modern India's initiatives, empowering them to become job creators and technology leaders.</p>
+                </div>
+                <div class="admission-highlight">
+                  <p class="outcome-text"><strong>Admission Requirements:</strong> Admission to the B.Tech. in Data Science & Engineering requires a minimum of 85% in PUC (self-sponsored category). For government quota seats, the typical KCET cutoff rank is below 50,000.</p>
+                </div>
+                <div class="closing-statement">
+                  <p>This multi-level benchmarking ensures that CSE graduates are not only industry-ready but also academically and globally competitive, capable of excelling in research, innovation, and entrepreneurship.</p>
+                </div>
+                <div class="benchmark-table">
+                  <h4 class="objective-title">Admission Requirements Table</h4>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Category</th>
+                        <th>Requirement</th>
+                        <th>Cutoff/Eligibility</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Self-Sponsored</td>
+                        <td>PUC Percentage</td>
+                        <td>Minimum 85%</td>
+                      </tr>
+                      <tr>
+                        <td>Government Quota</td>
+                        <td>KCET Rank</td>
+                        <td>Below 50,000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" aria-label="Footer navigation and contact information">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="fcol">
+          <h4>Information For</h4>
+          <p><a href="#" aria-label="Information for prospective students">Prospective Students</a></p>
+          <p><a href="#" aria-label="Information for current students">Current Students</a></p>
+          <p><a href="#" aria-label="Information for alumni">Alumni</a></p>
+        </div>
+        <div class="fcol">
+          <h4>Information About</h4>
+          <p><a href="#" aria-label="About GM University">About GM University</a></p>
+          <p><a href="#" aria-label="Academic programs">Academic Programs</a></p>
+          <p><a href="#" aria-label="Research at GM University">Research</a></p>
+        </div>
+        <div class="fcol">
+          <h4>Important Info</h4>
+          <p><a href="#" aria-label="Admissions information">Admissions</a></p>
+          <p><a href="#" aria-label="Career opportunities">Careers</a></p>
+          <p><a href="#" aria-label="Campus life">Campus Life</a></p>
+        </div>
+        <div class="fcol">
+          <h4>Placements & Internships</h4>
+          <p><a href="placements.html" aria-label="Placement overview">Placement Overview</a></p>
+          <p><a href="placements.html" aria-label="Star students">Star Students</a></p>
+          <p><a href="placements.html" aria-label="Top recruiters">Top Recruiters</a></p>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <div class="fcol">
+          <h4>Address & Contact Info</h4>
+          <p>GM University, Davangere, Karnataka, India</p>
+          <p>Email: <a href="mailto:info@gmu.edu" aria-label="Email GM University">info@gmu.edu</a></p>
+          <p>Phone: <a href="tel:+911234567890" aria-label="Call GM University">+91-123-456-7890</a></p>
+        </div>
+        <div class="fcol">
+          <h4>Connect With Us</h4>
+          <div class="social-links">
+            <a href="https://facebook.com" target="_blank" class="social-icon" aria-label="Visit our Facebook page"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com" target="_blank" class="social-icon" aria-label="Visit our Twitter page"><i class="fab fa-twitter"></i></a>
+            <a href="https://linkedin.com" target="_blank" class="social-icon" aria-label="Visit our LinkedIn page"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://instagram.com" target="_blank" class="social-icon" aria-label="Visit our Instagram page"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com" target="_blank" class="social-icon" aria-label="Visit our YouTube page"><i class="fab fa-youtube"></i></a>
+          </div>
+          <p><a href="https://www.google.com/maps/place/Davanagere,+Karnataka" target="_blank" class="flex items-center gap-2" aria-label="Find us on Google Maps"><i class="fa-solid fa-location-dot"></i> Find us on Google Maps</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 GM University. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar: Mobile toggle + scroll state + active link
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    const navbar = document.getElementById('navbar');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('active');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+      menuBtn.textContent = isOpen ? '✕' : '☰';
+    });
+
+    // Debounced scroll handler
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
+        highlightOnScroll();
+      }, 50);
+    });
+
+    function setActiveLink(element) {
+      document.querySelectorAll('.nav-links a, .nav-links .dropdown-btn').forEach(a => a.classList.remove('active'));
+      element.classList.add('active');
+      if (element.closest('.dropdown')) {
+        element.closest('.dropdown').querySelector('.dropdown-btn').classList.add('active');
+      }
+    }
+
+    function highlightOnScroll() {
+      const sections = ['hero'];
+      const fromTop = window.scrollY + 100;
+      let current = null;
+      for (const id of sections) {
+        const section = document.getElementById(id);
+        if (section && section.offsetTop <= fromTop) current = id;
+      }
+      if (current) {
+        document.querySelectorAll('.nav-links a, .nav-links .dropdown-btn').forEach(a => {
+          const href = a.getAttribute('href');
+          if (href === `#${current}`) {
+            a.classList.add('active');
+          } else if (href?.startsWith('#')) {
+            a.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        setActiveLink(link);
+        if (navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+          menuBtn.textContent = '☰';
+        }
+      });
+    });
+
+    // Enhanced Dropdown Functionality
+    function toggleDropdown(contentId) {
+      const content = document.getElementById(contentId);
+      const icon = document.getElementById(contentId.replace('-content', '-icon'));
+      const header = document.querySelector(`[aria-controls="${contentId}"]`);
+      const isActive = content.classList.contains('active');
+
+      // Close all dropdowns
+      document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+        dropdown.classList.remove('active');
+        dropdown.setAttribute('aria-hidden', 'true');
+      });
+      document.querySelectorAll('.dropdown-icon').forEach(iconEl => {
+        iconEl.classList.remove('fa-chevron-up');
+        iconEl.classList.add('fa-chevron-down');
+      });
+      document.querySelectorAll('.dropdown-header').forEach(h => {
+        h.setAttribute('aria-expanded', 'false');
+      });
+
+      // Toggle the clicked dropdown
+      if (!isActive) {
+        content.classList.add('active');
+        content.setAttribute('aria-hidden', 'false');
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+        header.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    // Add click event listeners to dropdown headers
+    document.querySelectorAll('.dropdown-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const contentId = header.getAttribute('aria-controls');
+        toggleDropdown(contentId);
+      });
+
+      // Keyboard navigation support
+      header.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const contentId = header.getAttribute('aria-controls');
+          toggleDropdown(contentId);
+        }
+      });
+      header.setAttribute('tabindex', '0');
+    });
+
+    // Scroll Reveal Animation
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.scroll-reveal');
+      reveals.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 80;
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('revealed');
+        }
+      });
+    }
+
+    // Smooth Scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Throttled Scroll Handler
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          revealOnScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Mouse Move Effect for Hero Card
+    let heroCard = null;
+
+    function handleMouseMove(e) {
+      if (!heroCard) return;
+      const rect = heroCard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 15;
+      const rotateY = -(x - centerX) / 15;
+      heroCard.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+    }
+
+    function handleMouseLeave() {
+      if (!heroCard) return;
+      heroCard.style.transform = 'perspective(800px) rotateY(-5deg) rotateX(3deg)';
+    }
+
+    // Initialize on Page Load
+    document.addEventListener('DOMContentLoaded', () => {
+      revealOnScroll();
+      heroCard = document.querySelector('.hero-card');
+      if (heroCard) {
+        heroCard.addEventListener('mousemove', handleMouseMove);
+        heroCard.addEventListener('mouseleave', handleMouseLeave);
+      }
+      document.querySelectorAll('.dropdown-item').forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.08}s`;
+      });
+      document.body.classList.add('loaded');
+    });
+
+    // Handle Window Resize
+    window.addEventListener('resize', revealOnScroll);
+
+    // Close dropdowns on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+          dropdown.classList.remove('active');
+          dropdown.setAttribute('aria-hidden', 'true');
+        });
+        document.querySelectorAll('.dropdown-icon').forEach(iconEl => {
+          iconEl.classList.remove('fa-chevron-up');
+          iconEl.classList.add('fa-chevron-down');
+        });
+        document.querySelectorAll('.dropdown-header').forEach(header => {
+          header.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+
+    // Footer: Social Icon Hover
+    document.querySelectorAll('.social-icon').forEach(icon => {
+      icon.addEventListener('mouseover', () => {
+        icon.style.color = '#60a5fa';
+      });
+      icon.addEventListener('mouseout', () => {
+        icon.style.color = '';
+      });
+    });
+  </script>
+</body>
+</html>

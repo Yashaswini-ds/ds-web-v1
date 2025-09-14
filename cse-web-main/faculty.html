@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faculty Directory - GM University Data Science</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Plus+Jakarta+Sans:wght@400;600;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Slab:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* Core CSS */
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --primary: #0f172a;
+      --primary-2: #111827;
+      --text: #0b1220;
+      --text-light: #f8fafc;
+      --muted: #64748b;
+      --accent: #3b82f6;
+      --accent-2: #8b5cf6;
+      --bg: #f8fafc;
+      --shadow-1: 0 10px 25px rgba(0,0,0,.08);
+      --shadow-2: 0 24px 50px rgba(0,0,0,.12);
+      --container: min(95vw, 1600px);
+    }
+    html, body { height: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6; overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; transition: transform 0.3s ease; }
+    .display-font { font-family: "Plus Jakarta Sans", "Poppins", sans-serif; }
+
+    /* Home Button */
+    .home-btn {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1100;
+      background: #e0f2fe;
+      color: #1e40af;
+      font-weight: 600;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .home-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      background: #bfdbfe;
+    }
+    .home-btn i {
+      font-size: 1.2rem;
+    }
+
+    /* Headline */
+    .faculty-header {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #3b5998 100%);
+      position: relative;
+      padding: 100px 0;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+    .faculty-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" fill="none"/><g opacity="0.1"><line x1="0" y1="0" x2="80" y2="0" stroke="white" stroke-width="0.5"/><line x1="0" y1="10" x2="80" y2="10" stroke="white" stroke-width="0.5"/><line x1="0" y1="20" x2="80" y2="20" stroke="white" stroke-width="0.5"/><line x1="0" y1="30" x2="80" y2="30" stroke="white" stroke-width="0.5"/><line x1="0" y1="40" x2="80" y2="40" stroke="white" stroke-width="0.5"/><line x1="0" y1="50" x2="80" y2="50" stroke="white" stroke-width="0.5"/><line x1="0" y1="60" x2="80" y2="60" stroke="white" stroke-width="0.5"/><line x1="0" y1="70" x2="80" y2="70" stroke="white" stroke-width="0.5"/><line x1="0" y1="80" x2="80" y2="80" stroke="white" stroke-width="0.5"/><line x1="0" y1="0" x2="0" y2="80" stroke="white" stroke-width="0.5"/><line x1="10" y1="0" x2="10" y2="80" stroke="white" stroke-width="0.5"/><line x1="20" y1="0" x2="20" y2="80" stroke="white" stroke-width="0.5"/><line x1="30" y1="0" x2="30" y2="80" stroke="white" stroke-width="0.5"/><line x1="40" y1="0" x2="40" y2="80" stroke="white" stroke-width="0.5"/><line x1="50" y1="0" x2="50" y2="80" stroke="white" stroke-width="0.5"/><line x1="60" y1="0" x2="60" y2="80" stroke="white" stroke-width="0.5"/><line x1="70" y1="0" x2="70" y2="80" stroke="white" stroke-width="0.5"/><line x1="80" y1="0" x2="80" y2="80" stroke="white" stroke-width="0.5"/></g></svg>');
+      background-size: 80px 80px;
+      animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 80px 80px; }
+    }
+    .headline {
+      text-align: center;
+      margin: 0;
+      font-family: 'Roboto Slab', serif;
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      font-weight: 800;
+      color: white;
+      position: relative;
+      letter-spacing: 0.02em;
+    }
+    .headline::after {
+      content: '';
+      position: absolute;
+      bottom: -0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+    }
+
+    /* Faculty Styles */
+    .main-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .faculty-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .faculty-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid #e5e7eb;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .faculty-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(37, 99, 235, 0.05);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .faculty-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+      border-color: #2563eb;
+    }
+
+    .faculty-card:active::before {
+      opacity: 1;
+      background: rgba(37, 99, 235, 0.15);
+    }
+
+    .faculty-image-container {
+      position: relative;
+      width: clamp(200px, 40%, 240px);
+      aspect-ratio: 1/1;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 50%;
+      background: #f3f4f6;
+    }
+
+    .faculty-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .faculty-image-fallback {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(2.5rem, 8vw, 3.5rem);
+      font-weight: 700;
+      color: #6b7280;
+      background: #f3f4f6;
+      border-radius: 50%;
+    }
+
+    .faculty-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      text-align: center;
+    }
+
+    .faculty-name {
+      font-family: 'Roboto Slab', serif;
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+      font-weight: 600;
+      color: #111827;
+      line-height: 1.3;
+    }
+
+    .faculty-designation {
+      color: #2563eb;
+      font-weight: 500;
+      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    }
+
+    .faculty-empid {
+      color: #374151;
+      font-size: 0.9rem;
+      font-weight: 500;
+      background: #f3f4f6;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      display: inline-block;
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    .faculty-email {
+      color: #2563eb;
+      font-size: 0.9rem;
+      font-weight: 400;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      word-break: break-all;
+    }
+
+    .faculty-email:hover {
+      text-decoration: underline;
+    }
+
+    .faculty-social {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .faculty-social a {
+      color: #2563eb;
+      font-size: 1.2rem;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .faculty-social a:hover {
+      transform: scale(1.2);
+      color: #1d4ed8;
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+      margin-bottom: 4rem;
+      padding: 60px 0;
+      background: #f9fafb;
+    }
+
+    .gallery-section h2 {
+      font-family: 'Roboto Slab', serif;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: #111827;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .gallery-grid {
+      column-count: 3;
+      column-gap: 1.5rem;
+    }
+
+    .gallery-item {
+      margin-bottom: 1.5rem;
+      break-inside: avoid;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid {
+        column-count: 2;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid {
+        column-count: 1;
+      }
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 700px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      transform: scale(0.95) translateY(20px);
+      transition: transform 0.4s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e5e7eb;
+    }
+
+    .modal.active .modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      font-size: 1.75rem;
+      color: #6b7280;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      color: #ef4444;
+      transform: scale(1.1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .modal-image-container {
+      position: relative;
+      width: clamp(120px, 20vw, 160px);
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: #f3f4f6;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .modal-image-fallback {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(3rem, 10vw, 4rem);
+      font-weight: 700;
+      color: #9ca3af;
+      background: #f3f4f6;
+      border-radius: 50%;
+    }
+
+    .modal-basic-info {
+      flex: 1;
+    }
+
+    .modal-name {
+      font-family: 'Roboto Slab', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .modal-designation {
+      color: #2563eb;
+      font-weight: 500;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      margin-bottom: 1rem;
+    }
+
+    .modal-empid {
+      background: #f3f4f6;
+      color: #374151;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 500;
+      display: inline-block;
+      font-size: 0.95rem;
+    }
+
+    .modal-details {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1.5rem;
+      background: #f9fafb;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      border-left: 4px solid #2563eb;
+    }
+
+    .detail-item:hover {
+      background: #f3f4f6;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: #1f2937;
+      min-width: 120px;
+      margin-right: 1.5rem;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .detail-value {
+      color: #374151;
+      font-weight: 400;
+      word-break: break-word;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .detail-value a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .detail-value a:hover {
+      text-decoration: underline;
+    }
+
+    .faculty-bio {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid #e5e7eb;
+    }
+
+    .bio-title {
+      font-family: 'Roboto Slab', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 1rem;
+    }
+
+    .bio-content {
+      color: #374151;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      font-weight: 400;
+    }
+
+    /* Image Modal */
+    .image-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1001;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-modal.active {
+      display: flex;
+    }
+
+    .image-modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    .image-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .image-close-btn:hover {
+      transform: scale(1.2);
+    }
+
+    /* Enhanced Responsive Adjustments */
+    @media (max-width: 1024px) {
+      .faculty-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      .faculty-image-container {
+        width: clamp(180px, 35%, 220px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 1.5rem;
+      }
+
+      .faculty-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .faculty-card {
+        padding: 1.5rem;
+      }
+
+      .faculty-image-container {
+        width: clamp(160px, 50%, 200px);
+      }
+
+      .modal-content {
+        padding: 2rem;
+        width: 95%;
+      }
+
+      .modal-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+      }
+
+      .modal-image-container {
+        width: clamp(100px, 25vw, 140px);
+      }
+
+      .detail-item {
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1.25rem;
+      }
+
+      .detail-label {
+        margin-right: 0;
+      }
+
+      .gallery-grid {
+        column-count: 2;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-container {
+        padding: 1rem;
+      }
+
+      .faculty-image-container {
+        width: clamp(140px, 45%, 180px);
+      }
+
+      .modal-image-container {
+        width: clamp(80px, 20vw, 120px);
+      }
+
+      .faculty-image-fallback {
+        font-size: clamp(2rem, 7vw, 3rem);
+      }
+
+      .modal-image-fallback {
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+      }
+
+      .gallery-grid {
+        column-count: 1;
+      }
+
+      .headline {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .faculty-card, .gallery-item {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .faculty-card:nth-child(odd), .gallery-item:nth-child(odd) { animation-delay: 0.1s; }
+    .faculty-card:nth-child(even), .gallery-item:nth-child(even) { animation-delay: 0.3s; }
+
+    /* Scrollbar */
+    .modal-content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-content::-webkit-scrollbar-track {
+      background: #f3f4f6;
+      border-radius: 3px;
+    }
+
+    .modal-content::-webkit-scrollbar-thumb {
+      background: #9ca3af;
+      border-radius: 3px;
+    }
+
+    .modal-content::-webkit-scrollbar-thumb:hover {
+      background: #6b7280;
+    }
+
+    /* Footer CSS */
+    footer {
+      background: linear-gradient(180deg, var(--primary-2) 0%, var(--primary) 100%);
+      color: var(--text-light);
+      padding: clamp(1.5rem, 3vw, 3rem) 0;
+      position: relative;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+    }
+    .footer-inner {
+      width: min(90vw, 1000px);
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: clamp(0.8rem, 1.5vw, 1.5rem);
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: clamp(0.8rem, 1.5vw, 1.5rem);
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+    .fcol {
+      padding: 0.6rem;
+      transition: transform 0.3s ease;
+    }
+    .fcol:hover {
+      transform: translateY(-5px);
+    }
+    .fcol h4 {
+      margin: 0 0 0.6rem;
+      color: var(--accent);
+      font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+      font-weight: 800;
+      font-family: "Plus Jakarta Sans", "Poppins", sans-serif;
+      position: relative;
+      padding-bottom: 0.4rem;
+    }
+    .fcol h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+    }
+    .fcol p, .fcol a {
+      font-size: clamp(0.75rem, 0.9vw, 0.95rem);
+      color: rgba(248,250,252,0.9);
+      text-decoration: none;
+      margin: 0.4rem 0;
+      display: block;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .fcol a:hover {
+      color: var(--accent-2);
+      transform: translateX(5px);
+    }
+    .social-links {
+      display: flex;
+      gap: 0.8rem;
+      margin: 0.6rem 0;
+      flex-wrap: wrap;
+    }
+    .social-links a {
+      color: var(--text-light);
+      font-size: clamp(1rem, 1.4vw, 1.4rem);
+      transition: color 0.3s ease, transform 0.3s ease;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+    }
+    .social-links a:hover {
+      color: var(--accent-2);
+      transform: scale(1.2);
+      background: rgba(255,255,255,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .footer-bottom {
+      text-align: center;
+      font-size: clamp(0.75rem, 0.9vw, 0.9rem);
+      color: rgba(255,255,255,0.7);
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      position: relative;
+    }
+    .footer-bottom::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top center, rgba(59,130,246,0.15) 0%, transparent 70%);
+      opacity: 0.6;
+      z-index: -1;
+    }
+    @media (max-width: 980px) {
+      .footer-grid, .contact-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+    }
+    @media (max-width: 680px) {
+      .footer-grid, .contact-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1rem;
+      }
+      .fcol h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .fcol a:hover {
+        transform: none;
+      }
+      .social-links {
+        justify-content: center;
+      }
+    }
+    @media (max-width: 480px) {
+      .footer-inner {
+        padding: 0 0.5rem;
+      }
+      .fcol h4 {
+        font-size: clamp(0.85rem, 1.1vw, 1.1rem);
+      }
+      .fcol p, .fcol a {
+        font-size: clamp(0.7rem, 0.8vw, 0.85rem);
+      }
+      .social-links a {
+        width: 28px;
+        height: 28px;
+        font-size: 1.1rem;
+      }
+    }
+
+    /* Social Icon CSS */
+    .social-icon {
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .social-icon:hover {
+      transform: scale(1.2);
+      color: #93c5fd;
+    }
+
+    /* Navbar CSS */
+    .navbar {
+      position: fixed; inset: 0 0 auto 0; z-index: 1000;
+      background: rgba(15,23,42,.85); backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      transition: background .3s ease, box-shadow .3s ease;
+    }
+    .navbar.scrolled { background: rgba(15,23,42,.95); box-shadow: 0 10px 30px rgba(0,0,0,.2); }
+    .nav-inner {
+      width: var(--container); margin: 0 auto; padding: .85rem 1rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .brand {
+      color: var(--text-light); text-decoration: none; font-weight: 900;
+      letter-spacing: .2px; font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+      font-family: "Playfair Display", "Plus Jakarta Sans", Poppins, serif;
+      display: flex; align-items: center; gap: .75rem;
+      transition: transform 0.3s ease;
+    }
+    .brand:hover { transform: scale(1.05); }
+    .brand img {
+      height: 40px; border-radius: 50%; box-shadow: 0 4px 12px rgba(255,255,255,0.2);
+    }
+    .brand-text {
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      font-weight: 700;
+      font-family: "Playfair Display", serif;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .menu-btn { display: none; background: transparent; border: 0; color: #fff; font-size: 1.6rem; padding: .35rem .6rem; border-radius: .5rem; cursor: pointer; transition: transform 0.3s ease; }
+    .menu-btn:hover { transform: rotate(90deg); }
+    .nav-links { display: flex; align-items: center; gap: .25rem; }
+    .nav-links a, .nav-links .dropdown-btn {
+      --pad-x: .9rem;
+      color: rgba(248,250,252,.92); text-decoration: none; font-weight: 600;
+      padding: .55rem var(--pad-x); position: relative; display: inline-block;
+      border-radius: .5rem; transition: color 0.3s ease, background 0.3s ease;
+    }
+    .nav-links a:hover, .nav-links .dropdown-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
+    .nav-links a::after, .nav-links .dropdown-btn::after {
+      content: ""; position: absolute; left: var(--pad-x); right: var(--pad-x); bottom: 6px;
+      height: 3px; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transform: scaleX(0); transform-origin: center; transition: transform .25s ease;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after, .nav-links .dropdown-btn:hover::after { transform: scaleX(1); }
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%; left: 0;
+      background: rgba(15,23,42,.98);
+      border-radius: .75rem;
+      box-shadow: 0 8px 16px rgba(0,0,0,.2);
+      min-width: 200px;
+      z-index: 10;
+      overflow: hidden;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .dropdown-content a {
+      display: block;
+      padding: .85rem 1.5rem;
+      color: rgba(248,250,252,.92);
+      text-decoration: none;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .dropdown-content a:hover {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .menu-btn { display: inline-block; }
+      .nav-links {
+        position: absolute; top: 100%; left: 0; right: 0; display: none; flex-direction: column; align-items: stretch;
+        background: rgba(15,23,42,.98); padding: .5rem; gap: .15rem; border-bottom-left-radius: .75rem; border-bottom-right-radius: .75rem;
+      }
+      .nav-links.active { display: flex; }
+      .nav-links a, .nav-links .dropdown-btn { padding: .85rem 1rem; text-align: center; }
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background: transparent;
+        padding-left: 0;
+      }
+      .dropdown-content a { padding: .6rem 1rem; border-top: 1px solid rgba(255,255,255,.1); text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-inner {
+        padding: .5rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .brand {
+        font-size: clamp(1rem, 4vw, 1.25rem);
+      }
+      .brand img {
+        height: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="GM University Data Science Home">
+        <img src="https://gmu.ac.in/assets/imgs/gmulogo1.png" alt="GM University Logo">
+        <span class="brand-text">GM University</span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">☰</button>
+      <div class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
+        <a href="index.html" >Home</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-btn">Academics ▾</a>
+          <div class="dropdown-content">
+            <a href="programs.html">Programs</a>
+            <a href="IQAC.html">IQAC & BOS</a>
+          </div>
+        </div>
+        <a href="placements.html">Placements</a>
+        <a href="faculty.html" class="active">Faculty</a>
+        <a href="Achievement.html">Achievements</a>
+        <a href="alumini.html">Alumni</a>
+        <a href="contact.html">Contact us</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="faculty-header">
+    <h1 class="headline">Faculty Directory</h1>
+  </div>
+
+  <div class="main-container">
+    <div class="faculty-grid" id="facultyGrid">
+      <!-- Faculty cards generated here -->
+    </div>
+
+    <!-- Gallery Sections -->
+    <section class="gallery-section" id="activities-gallery">
+      <h2>Department Activities</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openImageModal(this.querySelector('img').src)">
+          <img src="2.jpeg" alt="Department Activity 1">
+        </div>
+        <div class="gallery-item" onclick="openImageModal(this.querySelector('img').src)">
+          <img src="SPORT.jpg" alt="Department Activity 2">
+        </div>
+        <div class="gallery-item" onclick="openImageModal(this.querySelector('img').src)">
+          <img src="yakhsa.jpg" alt="Department Activity 3">
+        </div>
+        <div class="gallery-item" onclick="openImageModal(this.querySelector('img').src)">
+          <img src="13.jpeg" alt="Department Activity 4">
+        </div>
+        <div class="gallery-item" onclick="openImageModal(this.querySelector('img').src)">
+          <img src="dance.png" alt="Department Activity 5">
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-section" id="faculty-group-gallery">
+      <h2>Activities</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openImageModal(this.querySelector('img').src)">
+          <img src="gp1.png" alt="Faculty Group 1">
+        </div>
+        <div class="gallery-item" onclick="openImageModal(this.querySelector('img').src)">
+          <img src="gp1.png" alt="Faculty Activity 1">
+        </div>
+        <div class="gallery-item" onclick="openImageModal(this.querySelector('img').src)">
+          <img src="gp1.png" alt="Faculty Group 2">
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Faculty Modal -->
+  <div class="modal" id="facultyModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeBtn" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <div class="modal-image-container">
+          <img id="modalImage" class="modal-image" src="" alt="Faculty Image">
+          <div id="modalFallback" class="modal-image-fallback"></div>
+        </div>
+        <div class="modal-basic-info">
+          <div class="modal-name" id="modalName"></div>
+          <div class="modal-designation" id="modalDesignation"></div>
+          <div class="modal-empid" id="modalEmpId"></div>
+        </div>
+      </div>
+      <div class="modal-details" id="modalDetails"></div>
+    </div>
+  </div>
+
+  <!-- Image Modal -->
+  <div class="image-modal" id="imageModal">
+    <span class="image-close-btn" onclick="closeImageModal()">&times;</span>
+    <img class="image-modal-content" id="modalImageSrc" src="">
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" aria-label="Footer navigation and contact information">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="fcol">
+          <h4>Information For</h4>
+          <p><a href="#" aria-label="Information for prospective students">Prospective Students</a></p>
+          <p><a href="#" aria-label="Information for current students">Current Students</a></p>
+          <p><a href="#" aria-label="Information for alumni">Alumni</a></p>
+        </div>
+        <div class="fcol">
+          <h4>Information About</h4>
+          <p><a href="#" aria-label="About GM University">About GM University</a></p>
+          <p><a href="#" aria-label="Academic programs">Academic Programs</a></p>
+          <p><a href="#" aria-label="Research at GM University">Research</a></p>
+        </div>
+        <div class="fcol">
+          <h4>Important Info</h4>
+          <p><a href="#" aria-label="Admissions information">Admissions</a></p>
+          <p><a href="#" aria-label="Career opportunities">Careers</a></p>
+          <p><a href="#" aria-label="Campus life">Campus Life</a></p>
+        </div>
+        <div class="fcol">
+          <h4>Placements & Internships</h4>
+          <p><a href="placements.html" aria-label="Placement overview">Placement Overview</a></p>
+          <p><a href="placements.html" aria-label="Star students">Star Students</a></p>
+          <p><a href="placements.html" aria-label="Top recruiters">Top Recruiters</a></p>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <div class="fcol">
+          <h4>Address & Contact Info</h4>
+          <p>GM University, Davangere, Karnataka, India</p>
+          <p>Email: <a href="mailto:info@gmu.edu" aria-label="Email GM University">info@gmu.edu</a></p>
+          <p>Phone: <a href="tel:+911234567890" aria-label="Call GM University">+91-123-456-7890</a></p>
+        </div>
+        <div class="fcol">
+          <h4>Connect With Us</h4>
+          <div class="social-links">
+            <a href="https://facebook.com" target="_blank" class="social-icon" aria-label="Visit our Facebook page"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com" target="_blank" class="social-icon" aria-label="Visit our Twitter page"><i class="fab fa-twitter"></i></a>
+            <a href="https://linkedin.com" target="_blank" class="social-icon" aria-label="Visit our LinkedIn page"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://instagram.com" target="_blank" class="social-icon" aria-label="Visit our Instagram page"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com" target="_blank" class="social-icon" aria-label="Visit our YouTube page"><i class="fab fa-youtube"></i></a>
+          </div>
+          <p><a href="https://www.google.com/maps/place/Davanagere,+Karnataka" target="_blank" class="flex items-center gap-2 hover:text-blue-200" aria-label="Find us on Google Maps"><i class="fa-solid fa-location-dot"></i> Find us on Google Maps</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 GM University. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Ensure script runs after DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // NAV: Mobile toggle + scroll state + active link
+      const menuBtn = document.getElementById('menuBtn');
+      const navLinks = document.getElementById('navLinks');
+      const navbar = document.getElementById('navbar');
+
+      if (menuBtn && navLinks && navbar) {
+        menuBtn.addEventListener('click', () => {
+          const isOpen = navLinks.classList.toggle('active');
+          menuBtn.setAttribute('aria-expanded', String(isOpen));
+          menuBtn.textContent = isOpen ? '✕' : '☰';
+        });
+
+        // Debounced scroll handler
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            navbar.classList.toggle('scrolled', window.scrollY > 80);
+            highlightOnScroll();
+          }, 50);
+        });
+
+        function setActiveLink(element) {
+          document.querySelectorAll('.nav-links a, .nav-links .dropdown-btn').forEach(a => a.classList.remove('active'));
+          element.classList.add('active');
+          if (element.closest('.dropdown')) {
+            element.closest('.dropdown').querySelector('.dropdown-btn').classList.add('active');
+          }
+        }
+
+        function highlightOnScroll() {
+          const sections = ['hero', 'about', 'hod', 'news'];
+          const fromTop = window.scrollY + 120;
+          let current = null;
+          for (const id of sections) {
+            const section = document.getElementById(id);
+            if (section && section.offsetTop <= fromTop) current = id;
+          }
+          if (current) {
+            document.querySelectorAll('.nav-links a, .nav-links .dropdown-btn').forEach(a => {
+              const href = a.getAttribute('href');
+              if (href === `#${current}`) a.classList.add('active');
+              else if (href?.startsWith('#')) a.classList.remove('active');
+            });
+          }
+        }
+      } else {
+        console.error('Navigation elements not found');
+      }
+
+      // Faculty Data with LOCAL IMAGES
+      const facultyData = [
+        { 
+          empId: "EC23002", 
+          name: "", 
+          designation: "Professor", 
+          email: "",
+          bio: " "",
+          linkedin: "
+        },
+   
+      ];
+
+      // Faculty JS
+      function getInitials(name) {
+        return name.split(' ').map(word => word[0]).join('').toUpperCase();
+      }
+
+      function createFacultyCard(faculty) {
+        try {
+          const card = document.createElement('div');
+          card.className = 'faculty-card';
+          card.onclick = (e) => {
+            // Prevent card click from triggering when clicking the LinkedIn link
+            if (!e.target.closest('.faculty-social a')) {
+              openModal(faculty);
+            }
+          };
+
+          const imageContainer = document.createElement('div');
+          imageContainer.className = 'faculty-image-container';
+
+          const image = document.createElement('img');
+          image.className = 'faculty-image';
+          image.src = faculty.image || '';
+          image.alt = `${faculty.name} Image`;
+          image.onerror = () => {
+            console.warn(`Failed to load image for ${faculty.name}: ${faculty.image}`);
+            image.style.display = 'none';
+            fallback.style.display = 'flex';
+          };
+
+          const fallback = document.createElement('div');
+          fallback.className = 'faculty-image-fallback';
+          fallback.textContent = getInitials(faculty.name);
+          fallback.style.display = faculty.image ? 'none' : 'flex';
+
+          imageContainer.appendChild(image);
+          imageContainer.appendChild(fallback);
+
+          const info = document.createElement('div');
+          info.className = 'faculty-info';
+
+          const name = document.createElement('h3');
+          name.className = 'faculty-name';
+          name.textContent = faculty.name;
+
+          const designation = document.createElement('p');
+          designation.className = 'faculty-designation';
+          designation.textContent = faculty.designation;
+
+          const empId = document.createElement('span');
+          empId.className = 'faculty-empid';
+          empId.textContent = faculty.empId;
+
+          const email = document.createElement('a');
+          email.className = 'faculty-email';
+          email.href = `mailto:${faculty.email}`;
+          email.textContent = faculty.email;
+
+          const social = document.createElement('div');
+          social.className = 'faculty-social';
+
+          const linkedin = document.createElement('a');
+          linkedin.href = faculty.linkedin || `https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(faculty.name + ' GM Institute of Technology')}`;
+          linkedin.target = '_blank';
+          linkedin.innerHTML = '<i class="fab fa-linkedin"></i>';
+          linkedin.setAttribute('aria-label', `Visit ${faculty.name}'s LinkedIn profile`);
+
+          social.appendChild(linkedin);
+
+          info.appendChild(name);
+          info.appendChild(designation);
+          info.appendChild(empId);
+          info.appendChild(email);
+          info.appendChild(social);
+
+          card.appendChild(imageContainer);
+          card.appendChild(info);
+
+          return card;
+        } catch (error) {
+          console.error(`Error creating card for ${faculty.name}:`, error);
+          return null;
+        }
+      }
+
+      const facultyGrid = document.getElementById('facultyGrid');
+      if (facultyGrid) {
+        facultyData.forEach(faculty => {
+          const card = createFacultyCard(faculty);
+          if (card) {
+            facultyGrid.appendChild(card);
+          }
+        });
+      } else {
+        console.error('Faculty grid element not found');
+      }
+
+      const modal = document.getElementById('facultyModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalFallback = document.getElementById('modalFallback');
+      const modalName = document.getElementById('modalName');
+      const modalDesignation = document.getElementById('modalDesignation');
+      const modalEmpId = document.getElementById('modalEmpId');
+      const modalDetails = document.getElementById('modalDetails');
+      const closeBtn = document.getElementById('closeBtn');
+
+      function openModal(faculty) {
+        try {
+          modalImage.src = faculty.image || '';
+          modalImage.alt = `${faculty.name} Image`;
+          modalImage.style.display = faculty.image ? 'block' : 'none';
+          modalFallback.textContent = getInitials(faculty.name);
+          modalFallback.style.display = faculty.image ? 'none' : 'flex';
+          modalImage.onerror = () => {
+            console.warn(`Failed to load modal image for ${faculty.name}: ${faculty.image}`);
+            modalImage.style.display = 'none';
+            modalFallback.style.display = 'flex';
+          };
+
+          modalName.textContent = faculty.name;
+          modalDesignation.textContent = faculty.designation;
+          modalEmpId.textContent = faculty.empId;
+
+          modalDetails.innerHTML = '';
+
+          const emailItem = document.createElement('div');
+          emailItem.className = 'detail-item';
+
+          const emailLabel = document.createElement('span');
+          emailLabel.className = 'detail-label';
+          emailLabel.textContent = 'Email:';
+
+          const emailValue = document.createElement('div');
+          emailValue.className = 'detail-value';
+          const emailLink = document.createElement('a');
+          emailLink.href = `mailto:${faculty.email}`;
+          emailLink.textContent = faculty.email;
+          emailValue.appendChild(emailLink);
+
+          emailItem.appendChild(emailLabel);
+          emailItem.appendChild(emailValue);
+
+          modalDetails.appendChild(emailItem);
+
+          if (faculty.linkedin) {
+            const linkedinItem = document.createElement('div');
+            linkedinItem.className = 'detail-item';
+
+            const linkedinLabel = document.createElement('span');
+            linkedinLabel.className = 'detail-label';
+            linkedinLabel.textContent = 'LinkedIn:';
+
+            const linkedinValue = document.createElement('div');
+            linkedinValue.className = 'detail-value';
+            const linkedinLink = document.createElement('a');
+            linkedinLink.href = faculty.linkedin;
+            linkedinLink.target = '_blank';
+            linkedinLink.textContent = 'View Profile';
+            linkedinValue.appendChild(linkedinLink);
+
+            linkedinItem.appendChild(linkedinLabel);
+            linkedinItem.appendChild(linkedinValue);
+
+            modalDetails.appendChild(linkedinItem);
+          }
+
+          const bioSection = document.createElement('div');
+          bioSection.className = 'faculty-bio';
+
+          const bioTitle = document.createElement('h4');
+          bioTitle.className = 'bio-title';
+          bioTitle.textContent = 'Biography';
+
+          const bioContent = document.createElement('p');
+          bioContent.className = 'bio-content';
+          bioContent.textContent = faculty.bio;
+
+          bioSection.appendChild(bioTitle);
+          bioSection.appendChild(bioContent);
+
+          modalDetails.appendChild(bioSection);
+
+          modal.classList.add('active');
+        } catch (error) {
+          console.error(`Error opening modal for ${faculty.name}:`, error);
+        }
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+      }
+
+      if (modal && closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+          if (event.target === modal) {
+            closeModal();
+          }
+        });
+      }
+
+      // Image Modal JS
+      const imageModal = document.getElementById('imageModal');
+      const modalImageSrc = document.getElementById('modalImageSrc');
+
+      function openImageModal(src) {
+        modalImageSrc.src = src;
+        imageModal.classList.add('active');
+      }
+
+      function closeImageModal() {
+        imageModal.classList.remove('active');
+      }
+
+      if (imageModal) {
+        imageModal.addEventListener('click', (event) => {
+          if (event.target === imageModal) {
+            closeImageModal();
+          }
+        });
+      }
+
+      // Footer JS
+      document.querySelectorAll('.social-icon').forEach(icon => {
+        icon.addEventListener('mouseover', () => {
+          icon.style.color = '#60a5fa';
+        });
+        icon.addEventListener('mouseout', () => {
+          icon.style.color = '';
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
