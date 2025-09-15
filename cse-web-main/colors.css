@@ -1,0 +1,87 @@
+/* === Project Color Palette === */
+:root {
+  /* Primary Colors */
+  --cse-primary: #591717;  /* Dark maroon from nav bar */
+  --cse-primary-dark: #441111; /* Darker shade for hover */
+  --cse-primary-light: #6a2020; /* Lighter shade for accents */
+  
+  /* Secondary Colors */
+  --cse-gold: #FFD700; /* Gold for accents */
+  --cse-gold-light: #FFE44D; /* Lighter gold for hover */
+  
+  /* Background Colors */
+  --cse-bg-dark: #591717; /* Dark background */
+  --cse-bg-light: #ffffff; /* Light background */
+  --cse-bg-cream: #fff8dc; /* Cream background */
+  
+  /* Text Colors */
+  --cse-text-dark: #2d1a1a; /* Dark text */
+  --cse-text-light: #ffffff; /* Light text */
+  --cse-text-muted: #666666; /* Muted text */
+  
+  /* Border Colors */
+  --cse-border: #591717; /* Primary border */
+  --cse-border-light: rgba(89, 23, 23, 0.2); /* Light border */
+  
+  /* Hover/Active States */
+  --cse-hover-bg: #441111; /* Hover background */
+  --cse-active-bg: #6a2020; /* Active background */
+  
+  /* Shadow Colors */
+  --cse-shadow: rgba(89, 23, 23, 0.2); /* Box shadows */
+}
+
+/* Utility Classes for Backgrounds */
+.cse-bg-primary { background: var(--cse-primary); }
+.cse-bg-primary-dark { background: var(--cse-primary-dark); }
+.cse-bg-primary-light { background: var(--cse-primary-light); }
+.cse-bg-gold { background: var(--cse-gold); }
+.cse-bg-gold-light { background: var(--cse-gold-light); }
+.cse-bg-light { background: var(--cse-bg-light); }
+.cse-bg-cream { background: var(--cse-bg-cream); }
+.cse-bg-dark { background: var(--cse-bg-dark); }
+
+/* Utility Classes for Text Colors */
+.cse-text-primary { color: var(--cse-primary); }
+.cse-text-gold { color: var(--cse-gold); }
+.cse-text-dark { color: var(--cse-text-dark); }
+.cse-text-light { color: var(--cse-text-light); }
+.cse-text-muted { color: var(--cse-text-muted); }
+
+/* Border Utilities */
+.cse-border-primary { border-color: var(--cse-border); }
+.cse-border-light { border-color: var(--cse-border-light); }
+
+/* Background Gradients */
+.cse-gradient-primary {
+    background: linear-gradient(135deg, var(--cse-primary-dark) 0%, var(--cse-primary) 50%, var(--cse-primary-light) 100%);
+}
+
+/* Interactive States */
+.cse-hover-primary:hover {
+    background: var(--cse-hover-bg);
+    color: var(--cse-text-light);
+}
+
+/* Utility: hover text gold */
+.hover-text-gold:hover {
+    color: var(--cse-gold) !important;
+}
+
+.cse-active-primary {
+    background: var(--cse-active-bg);
+    color: var(--cse-text-light);
+}
+
+/* Box Shadows */
+.cse-shadow-sm {
+    box-shadow: 0 2px 4px var(--cse-shadow);
+}
+
+.cse-shadow-md {
+    box-shadow: 0 4px 8px var(--cse-shadow);
+}
+
+.cse-shadow-lg {
+    box-shadow: 0 8px 16px var(--cse-shadow);
+}

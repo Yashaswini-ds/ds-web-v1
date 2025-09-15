@@ -1,0 +1,318 @@
+/* Base Styles */
+body {
+    color: var(--cse-text-dark);
+    background: var(--cse-bg-light);
+}
+
+/* Map commonly-used site variables (from style.css) to GMU red/gold variables
+   This lets theme.css override the earlier blue variables by redefining them here. */
+:root {
+    --primary: var(--cse-red) !important;
+    --primary-2: var(--cse-red-dark) !important;
+    --accent: var(--cse-red) !important;
+    --accent-2: var(--cse-gold) !important;
+    --accent-light: color-mix(in srgb, var(--cse-red) 70%, var(--cse-gold) 30%) !important;
+    --accent-dark: var(--cse-red-dark) !important;
+    --bg-accent: rgba(255, 238, 204, 0.06) !important;
+}
+
+/* Navigation */
+.navbar {
+    background: linear-gradient(180deg, var(--cse-primary-dark), var(--cse-primary)) !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
+    border-bottom: 2px solid rgba(255,215,0,0.06) !important;
+}
+
+.nav-link {
+    color: var(--cse-text-light) !important;
+}
+
+.nav-link:hover {
+    background: var(--cse-hover-bg);
+}
+
+/* Brand text (gradient) override */
+.brand-text, .brand .brand-text {
+    /* Prefer solid gold for department title to be legible over maroon header */
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: unset !important;
+    color: var(--cse-gold) !important;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.25) !important;
+}
+
+.nav-link.active {
+    background: var(--cse-active-bg);
+}
+
+/* Headers and Text */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--cse-primary);
+}
+
+.section-title {
+    color: var(--cse-primary);
+    border-bottom: 2px solid var(--cse-gold);
+}
+
+/* Strong overrides for major hero/header sections that were blue */
+.placement-header,
+.hero,
+.faculty-header,
+.alumni-header,
+.placement-header .placement-header,
+.hero-card,
+.placement-header, .faculty-header, .alumni-header {
+    background: linear-gradient(135deg, var(--cse-red-dark) 0%, var(--cse-red) 100%) !important;
+    color: var(--cse-white) !important;
+}
+.placement-header::before,
+.hero::before,
+.faculty-header::before,
+.alumni-header::before {
+    /* remove blue radial tint overlays so red shows through */
+    background: none !important;
+}
+
+/* Buttons */
+.btn-primary {
+    background: var(--cse-primary);
+    border-color: var(--cse-primary);
+    color: var(--cse-text-light);
+}
+
+.btn-primary:hover {
+    background: var(--cse-hover-bg);
+    border-color: var(--cse-hover-bg);
+}
+
+/* Force buttons and prominent accents to use GMU red/gold */
+.btn-primary, .play-pause-btn, .home-btn {
+    background: var(--cse-red) !important;
+    border-color: var(--cse-red) !important;
+    color: var(--cse-white) !important;
+}
+.btn-primary:hover, .play-pause-btn:hover, .home-btn:hover {
+    background: var(--cse-red-dark) !important;
+    border-color: var(--cse-red-dark) !important;
+}
+
+/* Cards */
+.card {
+    border-color: var(--cse-border-light);
+    background: var(--cse-bg-light);
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px var(--cse-shadow);
+}
+
+.card-header {
+    background: var(--cse-primary);
+    color: var(--cse-text-light);
+}
+
+/* Card highlight overrides */
+.card-header, .coordinator-card::before, .coordinator-card .coordinator-photo, .section-title h2::after {
+    background: linear-gradient(90deg, var(--cse-red), var(--cse-gold)) !important;
+    color: var(--cse-white) !important;
+}
+
+/* Footer */
+footer {
+    background: var(--cse-primary);
+    color: var(--cse-text-light);
+}
+
+/* Footer accent */
+footer, .footer-inner, .footer-grid, .footer-bottom {
+    background: linear-gradient(180deg, var(--cse-red-dark) 0%, var(--cse-red) 100%) !important;
+    color: var(--cse-white) !important;
+}
+
+/* Links */
+a {
+    color: var(--cse-primary);
+}
+
+a:hover {
+    color: var(--cse-primary-dark);
+}
+
+/* Links should use gold accent on hover */
+a, a:visited { color: var(--cse-red) !important; }
+a:hover, a:focus { color: var(--cse-gold) !important; }
+
+/* Tables */
+.table thead {
+    background: var(--cse-primary);
+    color: var(--cse-text-light);
+}
+
+/* Table header override to maroon */
+.placement-table th, .table thead th {
+    background: linear-gradient(90deg, var(--cse-red), var(--cse-red-dark)) !important;
+    color: var(--cse-white) !important;
+}
+
+/* Borders */
+.border-primary {
+    border-color: var(--cse-border) !important;
+}
+
+/* Forms */
+.form-control:focus {
+    border-color: var(--cse-primary);
+    box-shadow: 0 0 0 0.2rem var(--cse-shadow);
+}
+
+/* Inputs focus using maroon glow */
+.form-control:focus {
+    border-color: var(--cse-red) !important;
+    box-shadow: 0 0 0 0.2rem rgba(165,0,0,0.12) !important;
+}
+
+/* Gradients */
+.gradient-header {
+    background: linear-gradient(135deg, var(--cse-primary-dark) 0%, var(--cse-primary) 100%);
+    color: var(--cse-text-light);
+}
+
+/* Accents */
+.accent-gold {
+    color: var(--cse-gold);
+}
+
+.accent-border {
+    border-bottom: 2px solid var(--cse-gold);
+}
+
+/* Hover Effects */
+.hover-effect:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--cse-shadow);
+    transition: all 0.3s ease;
+}
+
+/* Ensure elements that had explicit blue hex values are overridden */
+/* Common classes observed in the project */
+.brand, .brand-text, .nav-links a, .nav-links .dropdown-btn, .home-btn, .menu-btn,
+.section-title h2, .intro-item h3, .coordinator-info h3, .faculty-designation {
+    color: inherit !important;
+}
+
+/* Target explicit blue backgrounds used in several files */
+.placement-header, .faculty-header, .hero, .alumni-header, .placement-header .placement-header {
+    background-image: linear-gradient(135deg, var(--cse-red-dark), var(--cse-red)) !important;
+}
+
+/* Target specific blue hex usages and replace visually */
+.faculty-designation,
+.faculty-email,
+.coordinator-info .designation,
+.skill-item h4,
+.intro-item h3,
+.placement-table th,
+.placement-table td,
+.coordinator-photo, .coordinator-card::before {
+    color: var(--cse-red) !important;
+    border-color: var(--cse-red) !important;
+}
+
+/* Specific selectors that used #2563eb */
+.faculty-card:hover { border-color: var(--cse-red) !important; }
+.faculty-designation { color: var(--cse-red) !important; }
+.coordinator-photo { border: 5px solid var(--cse-red) !important; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--cse-bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--cse-primary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cse-primary-dark);
+}
+
+/* === Accessibility & contrast fixes: force readable white text on dark maroon areas === */
+
+/* Ensure all text inside maroon/hero/footer areas is white and fully opaque */
+.placement-header, .placement-header * ,
+.hero, .hero * ,
+.faculty-header, .faculty-header * ,
+.alumni-header, .alumni-header * ,
+footer, footer * ,
+.gradient-header, .gradient-header * ,
+.card-header, .card-header * {
+  color: var(--cse-white) !important;
+  opacity: 1 !important;
+}
+
+/* Footer specific: links, lists and small text must be white and clear */
+footer, .footer, .footer-inner, .footer-grid, .footer-bottom {
+  color: var(--cse-white) !important;
+  background: linear-gradient(180deg, var(--cse-red-dark) 0%, var(--cse-red) 100%) !important;
+}
+footer a, .footer a, .footer a:visited {
+  color: var(--cse-white) !important;
+  opacity: 1 !important;
+  text-decoration: none;
+}
+footer a:hover, .footer a:focus {
+  color: var(--cse-gold) !important;
+  text-decoration: underline;
+}
+
+/* Mega menus / nav links on dark background */
+.navbar, .nav-links, .nav-links a, .nav-link, .nav-links li a, .mega-menu, .mega-menu a, .dropdown-menu, .nav-dropdown {
+  color: var(--cse-white) !important;
+  opacity: 0.95 !important;
+}
+.nav-links a:hover, .nav-link:hover, .mega-menu a:hover, .nav-links .dropdown-btn:hover {
+  color: var(--cse-gold) !important;
+  background: rgba(255,215,0,0.03) !important;
+}
+
+/* Override earlier rule that set many text areas to maroon so body text on maroon stays white */
+.faculty-designation,
+.faculty-email,
+.coordinator-info .designation,
+.skill-item h4,
+.intro-item h3,
+.placement-table th,
+.placement-table td,
+.coordinator-photo, .coordinator-card::before {
+  /* keep these available for light-background contexts, but force white when inside dark containers */
+  color: inherit !important;
+  border-color: var(--cse-red) !important;
+}
+
+/* When any of the above appear inside a dark container, ensure they render white */
+.placement-header .faculty-designation,
+.placement-header .faculty-email,
+.placement-header .coordinator-info .designation,
+.hero .faculty-designation,
+.hero .intro-item h3,
+.footer .placement-table th,
+.footer .placement-table td {
+  color: var(--cse-white) !important;
+}
+
+/* Ensure scrollbar thumb matches theme and remains visible */
+::-webkit-scrollbar-thumb {
+    background: var(--cse-primary) !important;
+}
+
+/* Small utilities */
+.text-on-maroon { color: var(--cse-white) !important; }
+.text-on-maroon a { color: var(--cse-white) !important; }
+.text-on-maroon a:hover { color: var(--cse-gold) !important; }

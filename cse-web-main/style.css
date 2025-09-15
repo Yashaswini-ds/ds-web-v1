@@ -5,12 +5,12 @@
 
 /* CSS Variables - GMU Color Palette */
 :root {
-  /* Primary Colors - GMU Blue Theme */
-  --gmu-primary: #1e3a8a;        /* Deep Blue */
-  --gmu-primary-light: #3b82f6;  /* Bright Blue */
-  --gmu-primary-dark: #1e40af;   /* Darker Blue */
-  --gmu-secondary: #06b6d4;      /* Cyan Blue */
-  --gmu-accent: #10b981;         /* Green */
+  /* Primary Colors - mapped to GMU maroon/gold palette (overrides blue) */
+  --gmu-primary: var(--cse-primary);        /* Deep maroon */
+  --gmu-primary-light: var(--cse-primary-light);  /* Lighter maroon */
+  --gmu-primary-dark: var(--cse-primary-dark);   /* Darker maroon */
+  --gmu-secondary: var(--cse-gold);      /* Gold accent */
+  --gmu-accent: var(--cse-gold-light);         /* Gold/light accent */
   
   /* Neutral Colors */
   --gmu-white: #ffffff;
@@ -29,7 +29,7 @@
   --bg-primary: #ffffff;
   --bg-secondary: #f8fafc;
   --bg-dark: #0f172a;
-  --bg-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  --bg-gradient: linear-gradient(135deg, var(--cse-primary-dark) 0%, var(--cse-primary) 50%, var(--cse-primary-light) 100%);
   --bg-gradient-light: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   
   /* Shadows */
@@ -52,6 +52,41 @@
   --spacing-xl: 3rem;
   --spacing-2xl: 4rem;
 }
+
+/* === Project Color Palette === */
+:root {
+  --cse-red-dark: #7a0a0a;
+  --cse-red: #a50000;
+  --cse-gold: #FFD700;
+  --cse-white: #fff;
+  --cse-white-dim: #fff8dc;
+  --cse-brown-dark: #2d0c0c;
+  --cse-brown: #5a2323;
+  --cse-brown-text: #2d1a1a;
+  --cse-yellow-border: #FFD70033;
+}
+
+/* Example usage:
+   color: var(--cse-red);
+   background: var(--cse-gold);
+*/
+
+/* If you want to use these directly in your CSS: */
+.cse-bg-red-dark { background: #7a0a0a; }
+.cse-bg-red { background: #a50000; }
+.cse-bg-gold { background: #FFD700; }
+.cse-bg-white { background: #fff; }
+.cse-bg-white-dim { background: #fff8dc; }
+.cse-bg-brown-dark { background: #2d0c0c; }
+.cse-bg-brown { background: #5a2323; }
+
+.cse-text-red-dark { color: #7a0a0a; }
+.cse-text-red { color: #a50000; }
+.cse-text-gold { color: #FFD700; }
+.cse-text-white { color: #fff; }
+.cse-text-brown-dark { color: #2d0c0c; }
+.cse-text-brown { color: #5a2323; }
+.cse-text-brown-text { color: #2d1a1a; }
 
 /* Reset and Base Styles */
 * {
